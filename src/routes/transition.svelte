@@ -19,19 +19,19 @@
 -->
 
 <script lang="ts">
-	import { blur } from 'svelte/transition'
+  import { blur } from "svelte/transition";
 
-	export let url: string
+  export let url: string;
 </script>
 
 {#key url}
-	<div class="transition" in:blur={{ amount: 10, duration: 500 }}>
-		<slot />
-	</div>
+  <div class="transition" in:blur={{ amount: 10, duration: 500 }}>
+    <slot />
+  </div>
 {/key}
 
 <style>
-	.transition {
-		height: 100%;
-	}
+  .transition {
+    height: 100%;
+  }
 </style>

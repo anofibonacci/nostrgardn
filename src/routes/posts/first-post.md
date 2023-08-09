@@ -1,7 +1,7 @@
 ---
 title: First Post!
 description: This is my first post.
-date: '2023-5-4'
+date: "2023-5-4"
 categories:
   - sveltekit
   - svelte
@@ -14,6 +14,6 @@ Hello! 🙂
 
 ```ts
 function greet(name: string) {
-	console.log(`Hey ${name}! 😊`)
+  console.log(`Hey ${name}! 😊`);
 }
 ```
