@@ -11,6 +11,7 @@
 <p>
   Digging holes, planting seeds, and watering so others may view our garden in a
   perpetual state of awe.
+  Fertilized by our genuine poops. Passionately fertilized.
 </p>
 
 <style>

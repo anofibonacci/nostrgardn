@@ -11,16 +11,27 @@
       <li><a href="/about">nostrgardn</a></li>
     </ul>
   </nav>
-  <img src="IMG_8530.jpeg" width="500" height="500" alt="idk" />
-  <img src="IMG_8531.jpeg" width="500" height="500" alt="idk" />
-  <img src="IMG_8532.jpeg" width="500" height="500" alt="idk" />
+  <div class="image-container">
+    <img src="IMG_8530.jpeg" alt="idk" />
+    <img src="IMG_8531.jpeg" alt="idk" />
+    <img src="IMG_8532.jpeg" alt="idk" />
+  </div>
 </section>
 
 <style>
+  .image-container {
+    text-align: left;
+  }
+
   img {
-    border: 2px;
-    margin: 10px;
-    padding: 20px;
+    border: 10px double rgb(58, 161, 130);
+    display: inline-block;
+    width: 350px;
+    margin-right: 10px;
+  }
+
+  img:hover {
+    border: 10px solid rgb(58, 161, 130);
   }
 
   nav {
