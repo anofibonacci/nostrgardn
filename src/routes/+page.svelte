@@ -24,14 +24,15 @@
   }
 
   img {
-    border: 10px double rgb(58, 161, 130);
+    border: 10px double rgb(95, 195, 154);
     display: inline-block;
     width: 350px;
     margin-right: 10px;
   }
 
   img:hover {
-    border: 10px solid rgb(58, 161, 130);
+    border: 5px solid white;
+    box-shadow:  rgb(95, 195, 154) 0px 0px 10px;
   }
 
   nav {
@@ -49,7 +50,8 @@
   }
 
   a:hover {
-    text-shadow: rgb(255, 255, 255) 5px 2px 5px;
+    color: white;
+    text-shadow: rgb(58, 161, 130) 0px 0px 10px;
   }
 
   @media (min-width: 768px) {
