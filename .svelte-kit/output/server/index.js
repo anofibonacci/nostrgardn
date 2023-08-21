@@ -1,5 +1,6 @@
-import { w as writable, r as readable, D as DEV } from "./chunks/index.js";
+import { D as DEV } from "./chunks/prod-ssr.js";
 import { b as base, a as assets, r as reset, p as public_env, o as options, s as set_private_env, c as set_public_env, g as get_hooks } from "./chunks/internal.js";
+import { w as writable, r as readable } from "./chunks/index.js";
 function negotiate(accept, types) {
   const parts = [];
   accept.split(",").forEach((str, i) => {

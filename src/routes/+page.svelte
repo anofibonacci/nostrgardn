@@ -1,4 +1,10 @@
 <script lang="ts">
+  import ndkStore from "$lib/stores/ndk";
+  import PictureCard from "$lib/components/PictureCard.svelte";
+
+  const eventsPromise = $ndkStore.fetchEvents({
+    kinds: [1],
+  });
 </script>
 
 <section>
@@ -12,6 +18,13 @@
     <img src="IMG_8531.jpeg" alt="idk" />
     <img src="IMG_8532.jpeg" alt="idk" />
   </div>
+  <p>&nbsp;</p>
+
+  {#await eventsPromise then events}
+    {#each Array.from(events) as post}
+      <PictureCard {post} />
+    {/each}
+  {/await}
 </section>
 
 <style>

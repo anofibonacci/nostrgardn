@@ -45,6 +45,7 @@ declare module '$env/static/private' {
 	export const npm_package_scripts_lint: string;
 	export const TERM_PROGRAM_VERSION: string;
 	export const npm_package_scripts_dev: string;
+	export const npm_package_devDependencies__nostr_dev_kit_ndk_svelte_components: string;
 	export const MallocNanoZone: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const ZDOTDIR: string;
@@ -53,6 +54,7 @@ declare module '$env/static/private' {
 	export const npm_package_devDependencies__sveltejs_kit: string;
 	export const npm_config_registry: string;
 	export const PNPM_HOME: string;
+	export const npm_package_dependencies_dayjs: string;
 	export const USER: string;
 	export const npm_package_scripts_check_watch: string;
 	export const COMMAND_MODE: string;
@@ -75,10 +77,10 @@ declare module '$env/static/private' {
 	export const USER_ZDOTDIR: string;
 	export const PWD: string;
 	export const npm_package_scripts_preview: string;
+	export const npm_package_devDependencies__nostr_dev_kit_ndk: string;
 	export const npm_lifecycle_event: string;
 	export const LANG: string;
 	export const npm_package_name: string;
-	export const NODE_PATH: string;
 	export const npm_package_scripts_build: string;
 	export const XPC_FLAGS: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
@@ -157,6 +159,7 @@ declare module '$env/dynamic/private' {
 		npm_package_scripts_lint: string;
 		TERM_PROGRAM_VERSION: string;
 		npm_package_scripts_dev: string;
+		npm_package_devDependencies__nostr_dev_kit_ndk_svelte_components: string;
 		MallocNanoZone: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		ZDOTDIR: string;
@@ -165,6 +168,7 @@ declare module '$env/dynamic/private' {
 		npm_package_devDependencies__sveltejs_kit: string;
 		npm_config_registry: string;
 		PNPM_HOME: string;
+		npm_package_dependencies_dayjs: string;
 		USER: string;
 		npm_package_scripts_check_watch: string;
 		COMMAND_MODE: string;
@@ -187,10 +191,10 @@ declare module '$env/dynamic/private' {
 		USER_ZDOTDIR: string;
 		PWD: string;
 		npm_package_scripts_preview: string;
+		npm_package_devDependencies__nostr_dev_kit_ndk: string;
 		npm_lifecycle_event: string;
 		LANG: string;
 		npm_package_name: string;
-		NODE_PATH: string;
 		npm_package_scripts_build: string;
 		XPC_FLAGS: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;

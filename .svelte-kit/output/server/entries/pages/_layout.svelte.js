@@ -1,6 +1,7 @@
 import { c as create_ssr_component, e as escape, a as compute_rest_props, b as spread, d as escape_object, f as escape_attribute_value, g as each, v as validate_component, h as subscribe } from "../../chunks/ssr.js";
 import { t as title } from "../../chunks/config.js";
-import { B as BROWSER, w as writable } from "../../chunks/index.js";
+import { w as writable } from "../../chunks/index.js";
+import { B as BROWSER } from "../../chunks/prod-ssr.js";
 const void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
 function is_void(name) {
   return void_element_names.test(name) || name.toLowerCase() === "!doctype";
