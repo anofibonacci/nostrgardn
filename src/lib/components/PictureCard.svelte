@@ -3,6 +3,8 @@
   import ndk from "$lib/stores/ndk";
   import dayjs from "dayjs";
 
+  const myNine = "e2b1b6aba";
+
   export let post: NDKEvent;
   console.log("post: ", post);
 
@@ -41,14 +43,32 @@
 alt="${alt}"></a>${br}`;
     });
   }
+
+  function isImageLink(text: string) {
+    var imageSuffixPatternRegex = /\.(png|gif|webp|jpeg|jpg)$/g;
+    return text.match(imageSuffixPatternRegex);
+  }
 </script>
 
+{#if post.pubkey.substring(0,9) == myNine}
 <div class="eventBlock">
+  <h5>{myNine}</h5>
   <h6>
     {dayjs.unix(post.created_at ?? 0).format("MMM D, YYYY h:mm a")}<br />&nbsp;
   </h6>
   <p>{@html convertLinkToImage(addLineBreaks(linkify(content)))}</p>
 </div>
+{:else}
+  {#if post.tags}
+    {#each Array.from(post.tags) as tag}
+      {#if tag[0] == "r" && isImageLink(tag[1])}
+      <div class="image-container">
+        <img src="{tag[1]}" alt="user: {post.pubkey}">
+      </div>
+      {/if}
+    {/each}
+  {/if}
+{/if}
 
 <style>
   h6 {
@@ -66,5 +86,14 @@ alt="${alt}"></a>${br}`;
     border-radius: var(--size-3);
     box-shadow: 0 0 0.5rem var(--color-shadow);
     margin-bottom: var(--size-2);
+  }
+  .image-container {
+    text-align: left;
+  }
+  img {
+    border: 10px double rgb(95, 195, 154);
+    display: inline-block;
+    width: 350px;
+    margin-right: 10px;
   }
 </style>
