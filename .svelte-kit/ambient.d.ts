@@ -52,10 +52,12 @@ declare module '$env/static/private' {
 	export const npm_package_private: string;
 	export const npm_package_devDependencies__sveltejs_kit: string;
 	export const npm_config_registry: string;
+	export const PNPM_HOME: string;
 	export const USER: string;
 	export const npm_package_scripts_check_watch: string;
 	export const COMMAND_MODE: string;
 	export const npm_package_devDependencies_mdsvex: string;
+	export const npm_package_devDependencies__sveltejs_adapter_static: string;
 	export const PNPM_SCRIPT_SRC_DIR: string;
 	export const SSH_AUTH_SOCK: string;
 	export const __CF_USER_TEXT_ENCODING: string;
@@ -90,7 +92,6 @@ declare module '$env/static/private' {
 	export const SHLVL: string;
 	export const npm_package_type: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
-	export const npm_package_devDependencies__sveltejs_adapter_vercel: string;
 	export const HOMEBREW_PREFIX: string;
 	export const LOGNAME: string;
 	export const npm_package_scripts_format: string;
@@ -163,10 +164,12 @@ declare module '$env/dynamic/private' {
 		npm_package_private: string;
 		npm_package_devDependencies__sveltejs_kit: string;
 		npm_config_registry: string;
+		PNPM_HOME: string;
 		USER: string;
 		npm_package_scripts_check_watch: string;
 		COMMAND_MODE: string;
 		npm_package_devDependencies_mdsvex: string;
+		npm_package_devDependencies__sveltejs_adapter_static: string;
 		PNPM_SCRIPT_SRC_DIR: string;
 		SSH_AUTH_SOCK: string;
 		__CF_USER_TEXT_ENCODING: string;
@@ -201,7 +204,6 @@ declare module '$env/dynamic/private' {
 		SHLVL: string;
 		npm_package_type: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
-		npm_package_devDependencies__sveltejs_adapter_vercel: string;
 		HOMEBREW_PREFIX: string;
 		LOGNAME: string;
 		npm_package_scripts_format: string;

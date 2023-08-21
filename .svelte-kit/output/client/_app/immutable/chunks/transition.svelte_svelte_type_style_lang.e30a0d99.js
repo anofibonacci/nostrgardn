@@ -1,0 +1,1 @@
+import{w as o}from"./index.3b5b6fbf.js";const s=localStorage.getItem("color-scheme"),l=o(s??"dark");function a(){l.update(t=>{const e=t==="dark"?"light":"dark";return document.documentElement.setAttribute("color-scheme",e),localStorage.setItem("color-scheme",e),e})}export{a,l as t};

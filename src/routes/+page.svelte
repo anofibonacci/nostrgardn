@@ -1,8 +1,4 @@
 <script lang="ts">
-  import * as config from "$lib/config";
-  import { text } from "@sveltejs/kit";
-  import Toggle from "./toggle.svelte";
-  import Transition from "./transition.svelte";
 </script>
 
 <section>
