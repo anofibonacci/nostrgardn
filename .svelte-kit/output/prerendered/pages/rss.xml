@@ -1,9 +1,0 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-			<channel>
-				<title>nostrgardn</title>
-				<description>nostr's gardn</description>
-				<link>https://nostrgardn.io/</link>
-				<atom:link href="https://nostrgardn.io//rss.xml" rel="self" type="application/rss+xml"/>
-				
-			</channel>
-		</rss>

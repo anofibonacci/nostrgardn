@@ -104,7 +104,7 @@ const options = {
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <meta name="viewport" content="width=device-width" />\n    <link rel="icon" href="https://fav.farm/🧑‍🌾" />\n    <link rel="alternate" type="application/atom+xml" href="/rss.xml" />\n    ' + head + '\n    <script type="module">\n      const theme = localStorage.getItem("color-scheme");\n\n      theme\n        ? document.documentElement.setAttribute("color-scheme", theme)\n        : localStorage.setItem("color-scheme", "dark");\n    <\/script>\n  </head>\n  <body data-sveltekit-preload-data="hover">\n    <div style="display: contents">' + body + "</div>\n  </body>\n</html>\n",
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <meta name="viewport" content="width=device-width" />\n    <link rel="icon" href="https://fav.farm/🧑‍🌾" />\n    ' + head + '\n    <script type="module">\n      const theme = localStorage.getItem("color-scheme");\n\n      theme\n        ? document.documentElement.setAttribute("color-scheme", theme)\n        : localStorage.setItem("color-scheme", "dark");\n    <\/script>\n  </head>\n  <body data-sveltekit-preload-data="hover">\n    <div style="display: contents">' + body + "</div>\n  </body>\n</html>\n",
     error: ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
@@ -166,7 +166,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "17w62vw"
+  version_hash: "bm3t86"
 };
 function get_hooks() {
   return {};

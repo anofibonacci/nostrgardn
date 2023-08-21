@@ -28,7 +28,7 @@
 
   img:hover {
     border: 5px solid white;
-    box-shadow:  rgb(95, 195, 154) 0px 0px 10px;
+    box-shadow: rgb(95, 195, 154) 0px 0px 10px;
   }
 
   nav {

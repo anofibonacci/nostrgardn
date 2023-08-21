@@ -1,7 +1,7 @@
 import { c as create_ssr_component, e as escape, a as compute_rest_props, b as spread, d as escape_object, f as escape_attribute_value, g as each, v as validate_component, h as subscribe } from "../../chunks/ssr.js";
 import { t as title } from "../../chunks/config.js";
 import { B as BROWSER, w as writable } from "../../chunks/index.js";
-/* empty css                                                     */const void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
+const void_element_names = /^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/;
 function is_void(name) {
   return void_element_names.test(name) || name.toLowerCase() === "!doctype";
 }
@@ -113,6 +113,7 @@ const Leaf = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 const Leaf$1 = Leaf;
 const userTheme = browser;
 const theme = writable(userTheme);
+const toggle_svelte_svelte_type_style_lang = "";
 const css$3 = {
   code: "div.svelte-u3wayo.svelte-u3wayo{stroke-width:3px;size:13px}button.svelte-u3wayo.svelte-u3wayo{padding:0;font-weight:inherit;background:none;border:none;box-shadow:none;overflow:hidden}button.svelte-u3wayo>.svelte-u3wayo{display:flex;gap:var(--size-2)}",
   map: null
@@ -133,6 +134,7 @@ const Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$2);
   return `<center><nav class="svelte-axkk9j">${validate_component(Toggle, "Toggle").$$render($$result, {}, {}, {})}</nav> </center>`;
 });
+const transition_svelte_svelte_type_style_lang = "";
 const css$1 = {
   code: ".transition.svelte-l7qyos{height:100%}",
   map: null

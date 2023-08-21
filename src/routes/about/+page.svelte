@@ -24,7 +24,7 @@
   }
 
   a:hover {
-    text-decoration: none;/*needs this or else an underline shows*/
+    text-decoration: none; /*needs this or else an underline shows*/
     color: white;
     text-shadow: rgb(58, 161, 130) 0px 0px 10px;
   }
