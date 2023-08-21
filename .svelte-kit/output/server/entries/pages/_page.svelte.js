@@ -1,4 +1,4 @@
-import { c as create_ssr_component, e as escape, h as subscribe, j as is_promise, n as noop, g as each, v as validate_component } from "../../chunks/ssr.js";
+import { c as create_ssr_component, e as escape, g as each, j as add_attribute, h as subscribe, k as is_promise, n as noop, v as validate_component } from "../../chunks/ssr.js";
 import { w as writable } from "../../chunks/index.js";
 import NDK from "@nostr-dev-kit/ndk";
 import dayjs from "dayjs";
@@ -9,9 +9,10 @@ const ndk = new NDK({
 const ndkStore = writable(ndk);
 const PictureCard_svelte_svelte_type_style_lang = "";
 const css$1 = {
-  code: "h6.svelte-3xvr0i{color:rgb(193, 127, 196)}.eventBlock.svelte-3xvr0i{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:100%;padding:1rem;background-color:var(--surface-4);border:1px solid var(--color-gray-2);border-radius:var(--size-3);box-shadow:0 0 0.5rem var(--color-shadow);margin-bottom:var(--size-2)}",
+  code: "h6.svelte-zghf0h{color:rgb(193, 127, 196)}.eventBlock.svelte-zghf0h{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:100%;padding:1rem;background-color:var(--surface-4);border:1px solid var(--color-gray-2);border-radius:var(--size-3);box-shadow:0 0 0.5rem var(--color-shadow);margin-bottom:var(--size-2)}.image-container.svelte-zghf0h{text-align:left}img.svelte-zghf0h{border:10px double rgb(95, 195, 154);display:inline-block;width:350px;margin-right:10px}",
   map: null
 };
+const myNine = "e2b1b6aba";
 function linkify(text) {
   var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
   var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
@@ -32,6 +33,10 @@ function convertLinkToImage(text) {
 alt="${alt}"></a>${br}`;
   });
 }
+function isImageLink(text) {
+  var imageSuffixPatternRegex = /\.(png|gif|webp|jpeg|jpg)$/g;
+  return text.match(imageSuffixPatternRegex);
+}
 const PictureCard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { post } = $$props;
   console.log("post: ", post);
@@ -39,7 +44,9 @@ const PictureCard = create_ssr_component(($$result, $$props, $$bindings, slots) 
   if ($$props.post === void 0 && $$bindings.post && post !== void 0)
     $$bindings.post(post);
   $$result.css.add(css$1);
-  return `<div class="eventBlock svelte-3xvr0i"><h6 class="svelte-3xvr0i">${escape(dayjs.unix(post.created_at ?? 0).format("MMM D, YYYY h:mm a"))}<br> </h6> <p><!-- HTML_TAG_START -->${convertLinkToImage(addLineBreaks(linkify(content)))}<!-- HTML_TAG_END --></p> </div>`;
+  return `${post.pubkey.substring(0, 9) == myNine ? `<div class="eventBlock svelte-zghf0h"><h5>${escape(myNine)}</h5> <h6 class="svelte-zghf0h">${escape(dayjs.unix(post.created_at ?? 0).format("MMM D, YYYY h:mm a"))}<br> </h6> <p><!-- HTML_TAG_START -->${convertLinkToImage(addLineBreaks(linkify(content)))}<!-- HTML_TAG_END --></p></div>` : `${post.tags ? `${each(Array.from(post.tags), (tag) => {
+    return `${tag[0] == "r" && isImageLink(tag[1]) ? `<div class="image-container svelte-zghf0h"><img${add_attribute("src", tag[1], 0)} alt="${"user: " + escape(post.pubkey, true)}" class="svelte-zghf0h"> </div>` : ``}`;
+  })}` : ``}`}`;
 });
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
