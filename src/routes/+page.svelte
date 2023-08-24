@@ -1,10 +1,13 @@
 <script lang="ts">
+  import FullPostCard from "$lib/components/FullPostCard.svelte";
+  import PhotoOnlyFrame from "$lib/components/PhotoOnlyFrame.svelte";
   import ndkStore from "$lib/stores/ndk";
-  import PictureCard from "$lib/components/PictureCard.svelte";
 
   const eventsPromise = $ndkStore.fetchEvents({
     kinds: [1],
   });
+  const myNine = "e2b1b6aba";
+  //post.pubkey.substring(0,9) == myNine
 </script>
 
 <section>
@@ -13,16 +16,22 @@
       <li><a href="/about">nostrgardn</a></li>
     </ul>
   </nav>
+  <!--
   <div class="image-container">
     <img src="IMG_8530.jpeg" alt="idk" />
     <img src="IMG_8531.jpeg" alt="idk" />
     <img src="IMG_8532.jpeg" alt="idk" />
   </div>
   <p>&nbsp;</p>
+  -->
 
   {#await eventsPromise then events}
     {#each Array.from(events) as post}
-      <PictureCard {post} />
+      {#if post.pubkey.substring(0, 9) == myNine}
+        <FullPostCard {post} />
+      {:else}
+        <PhotoOnlyFrame {post} />
+      {/if}
     {/each}
   {/await}
 </section>
@@ -45,11 +54,11 @@
   }
 
   nav {
-    padding-block: var(--size-7);
+    padding-block: var(--size-1);
   }
 
   .links {
-    margin-block: var(--size-7);
+    margin-block: var(--size-1);
   }
 
   a {

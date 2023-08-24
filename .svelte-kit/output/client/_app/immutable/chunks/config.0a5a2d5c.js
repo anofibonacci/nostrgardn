@@ -1,1 +1,2 @@
-const t="nostrgardn";export{t};
+const t = "nostrgardn";
+export { t };

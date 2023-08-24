@@ -1,4 +1,2 @@
 const title = "nostrgardn";
-export {
-  title as t
-};
+export { title as t };

@@ -1,13 +1,12 @@
 <script lang="ts">
+  import "../app.css";
   import Footer from "./footer.svelte";
   import Header from "./header.svelte";
   import PageTransition from "./transition.svelte";
-
-  import "open-props/style";
-  import "open-props/normalize";
   import "open-props/buttons";
+  import "open-props/normalize";
+  import "open-props/style";
 
-  import "../app.css";
   export let data;
 </script>
 

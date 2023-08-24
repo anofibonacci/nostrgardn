@@ -1,6 +1,6 @@
-import { writable } from "svelte/store";
-import NDK from "@nostr-dev-kit/ndk";
 import { browser } from "$app/environment";
+import NDK from "@nostr-dev-kit/ndk";
+import { writable } from "svelte/store";
 
 const ndk = new NDK({
   explicitRelayUrls: ["wss://gardn.nostr1.com"],
