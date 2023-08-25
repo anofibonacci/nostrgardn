@@ -55,7 +55,8 @@
 		align-items: flex-start;
 		justify-content: center;
 		width: max-content;
-		padding: 1rem;
+		padding-block: 1em;
+		padding-inline: 3em;
 		background-color: var(--surface-4);
 		border: 1px solid var(--color-gray-2);
 		border-radius: var(--size-3);
