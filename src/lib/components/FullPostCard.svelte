@@ -19,8 +19,10 @@
 	}
 
 	function addLineBreaks(text: string) {
-		var regex = /\n|\r{1}/gim;
-		return text.replace(regex, '<br />');
+		var regex1 = /\n|\r{1}/gim;
+		var regex2 = /<br>{2,}/gim;
+		var revised = text.replace(regex1, '<br />');
+		return revised.replace(regex2, '<br />');
 	}
 
 	function convertLinkToImage(text: string) {
@@ -31,8 +33,8 @@
 		var p = '<p>&nbsp;</p>';
 		return text.replace(imageHidingAsLinkPatternRegex, (_, link, alt) => {
 			var alt = link.replace(/^https?:\/\//, '').replace(imageSuffixPatternRegex, '');
-			return `${br}<a href="${link}" target="_blank"><img src="${link}" 
-  alt="${alt}"></a>${br}`;
+			return `<a href="${link}" target="_blank"><img src="${link}" 
+  alt="${alt}"></a>`;
 		});
 	}
 </script>
@@ -55,12 +57,15 @@
 		align-items: flex-start;
 		justify-content: center;
 		width: max-content;
-		padding-block: 1em;
-		padding-inline: 3em;
+		margin-top: var(--size-4);
+		padding-top: var(--size-4);
+		padding-left: var(--size-7);
+		padding-right: var(--size-6);
+		padding-bottom: var(--size-3);
+		margin-bottom: var(--size-2);
 		background-color: var(--surface-4);
 		border: 1px solid var(--color-gray-2);
 		border-radius: var(--size-3);
 		box-shadow: 0 0 0.5rem var(--color-shadow);
-		margin-bottom: var(--size-2);
 	}
 </style>

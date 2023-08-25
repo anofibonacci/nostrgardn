@@ -34,11 +34,12 @@
 
 	main {
 		padding-block: var(--size-9);
+		padding-top: 0;
 	}
 
 	@media (min-width: 1440px) {
 		.layout {
-			padding-inline: 0;
+			padding-inline: var(--size-1);
 		}
 	}
 </style>

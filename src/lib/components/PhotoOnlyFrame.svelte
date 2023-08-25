@@ -61,7 +61,7 @@
 			<div class="image-container">
 			{#each photos as photo}
 				<a href={photo} target="_blank"
-					><img src={photo} alt="{source} from user: {post.pubkey.substring(0, 9)}" /></a
+					><img style="margin:9px;" src={photo} alt="{source} from user: {post.pubkey.substring(0, 9)}" /></a
 				>
 			{/each}
 			</div>
@@ -82,17 +82,19 @@
 		align-items: flex-start;
 		justify-content: center;
 		width: max-content;
-		padding: 1rem;
+		margin-top: var(--size-4);
+		padding-top: var(--size-4);
+		padding-inline: var(--size-4);
+		padding-bottom: var(--size-3);
+		margin-bottom: var(--size-2);
 		background-color: var(--surface-5);
 		border: 1px solid var(--color-gray-2);
 		border-radius: var(--size-3);
 		box-shadow: 0 0 0.5rem var(--color-shadow);
-		margin-bottom: var(--size-2);
 	}
 	.image-container {
 		display: flex;
 		flex-direction: row;
-		margin-inline: 2rem;
 		align-items: center;
 		justify-content: center;
 	}

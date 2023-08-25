@@ -153,7 +153,7 @@ const normalize_min = "";
 const openProps_min = "";
 const _layout_svelte_svelte_type_style_lang = "";
 const css = {
-  code: ".layout.svelte-1sq3us8{height:100%;max-inline-size:1440px;display:grid;grid-template-rows:auto 1fr auto;margin-inline:auto;padding-inline:var(--size-7)}main.svelte-1sq3us8{padding-block:var(--size-9)}@media(min-width: 1440px){.layout.svelte-1sq3us8{padding-inline:0}}",
+  code: ".layout.svelte-1s7gj2n{height:100%;max-inline-size:1440px;display:grid;grid-template-rows:auto 1fr auto;margin-inline:auto;padding-inline:var(--size-7)}main.svelte-1s7gj2n{padding-block:var(--size-9);padding-top:0}@media(min-width: 1440px){.layout.svelte-1s7gj2n{padding-inline:var(--size-1)}}",
   map: null
 };
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -161,7 +161,7 @@ const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   if ($$props.data === void 0 && $$bindings.data && data !== void 0)
     $$bindings.data(data);
   $$result.css.add(css);
-  return `<div class="layout svelte-1sq3us8">${validate_component(Header, "Header").$$render($$result, {}, {}, {})} <main class="svelte-1sq3us8">${validate_component(Transition, "PageTransition").$$render($$result, { url: data.url }, {}, {
+  return `<div class="layout svelte-1s7gj2n">${validate_component(Header, "Header").$$render($$result, {}, {}, {})} <main class="svelte-1s7gj2n">${validate_component(Transition, "PageTransition").$$render($$result, { url: data.url }, {}, {
     default: () => {
       return `${slots.default ? slots.default({}) : ``}`;
     }
