@@ -176,7 +176,11 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
+<<<<<<< HEAD
   version_hash: "1ad1oqj"
+=======
+  version_hash: "62zmd5"
+>>>>>>> 9a76477e57f6597a1e898750e0d74f48a87a200c
 };
 function get_hooks() {
   return {};
