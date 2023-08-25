@@ -54,18 +54,12 @@
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: center;
-		width: 100%;
+		width: max-content;
 		padding: 1rem;
 		background-color: var(--surface-4);
 		border: 1px solid var(--color-gray-2);
 		border-radius: var(--size-3);
 		box-shadow: 0 0 0.5rem var(--color-shadow);
 		margin-bottom: var(--size-2);
-	}
-	img {
-		border: 10px double rgb(95, 195, 154);
-		display: inline-block;
-		width: 350px;
-		margin-right: 10px;
 	}
 </style>
