@@ -14,6 +14,7 @@ html {
 	--surface-2-dark: var(--gray-11);
 	--surface-3-dark: var(--gray-10);
 	--surface-4-dark: var(--gray-9);
+	--surface-5-dark: var(--gray-8);
 	--background-dark: var(--gradient-23);
 	--border-dark: var(--gray-9);
 
@@ -25,6 +26,7 @@ html {
 	--surface-2-light: var(--gray-1);
 	--surface-3-light: var(--gray-2);
 	--surface-4-light: var(--gray-3);
+	--surface-5-light: var(--gray-4);
 	--background-light: var(--gradient-30);
 	--border-light: var(--gray-4);
 }
@@ -39,6 +41,7 @@ html {
 	--surface-2: var(--surface-2-dark);
 	--surface-3: var(--surface-3-dark);
 	--surface-4: var(--surface-4-dark);
+	--surface-5: var(--surface-5-dark);
 	--background: var(--background-dark);
 	--border: var(--border-dark);
 }
@@ -54,6 +57,7 @@ html {
 		--surface-2: var(--surface-2-light);
 		--surface-3: var(--surface-3-light);
 		--surface-4: var(--surface-4-light);
+		--surface-5: var(--surface-5-light);
 		--background: var(--background-light);
 		--border: var(--border-light);
 	}
@@ -69,6 +73,7 @@ html {
 	--surface-2: var(--surface-2-dark);
 	--surface-3: var(--surface-3-dark);
 	--surface-4: var(--surface-4-dark);
+	--surface-5: var(--surface-5-dark);
 	--background: var(--background-dark);
 	--border: var(--border-dark);
 }
@@ -83,6 +88,7 @@ html {
 	--surface-2: var(--surface-2-light);
 	--surface-3: var(--surface-3-light);
 	--surface-4: var(--surface-4-light);
+	--surface-5: var(--surface-5-light);
 	--background: var(--background-light);
 	--border: var(--border-light);
 }
