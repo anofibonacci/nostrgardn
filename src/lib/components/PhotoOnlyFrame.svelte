@@ -59,11 +59,15 @@
 				{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
 			</h6>
 			<div class="image-container">
-			{#each photos as photo}
-				<a href={photo} target="_blank"
-					><img style="margin:9px;" src={photo} alt="{source} from user: {post.pubkey.substring(0, 9)}" /></a
-				>
-			{/each}
+				{#each photos as photo}
+					<a href={photo} target="_blank"
+						><img
+							style="margin:9px;"
+							src={photo}
+							alt="{source} from user: {post.pubkey.substring(0, 9)}"
+						/></a
+					>
+				{/each}
 			</div>
 			<p>posted ({source}) by: {post.pubkey}</p>
 		</div>
