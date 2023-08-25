@@ -9,7 +9,7 @@ const ndk = new NDK({
 const ndkStore = writable(ndk);
 const FullPostCard_svelte_svelte_type_style_lang = "";
 const css$2 = {
-  code: "h6.svelte-drvpfs{color:rgb(193, 127, 196)}.fullPostBlock.svelte-drvpfs{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:max-content;padding-block:1em;padding-inline:3em;background-color:var(--surface-4);border:1px solid var(--color-gray-2);border-radius:var(--size-3);box-shadow:0 0 0.5rem var(--color-shadow);margin-bottom:var(--size-2)}",
+  code: "h6.svelte-1xuh8jc{color:rgb(193, 127, 196)}.fullPostBlock.svelte-1xuh8jc{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:max-content;margin-top:var(--size-4);padding-top:var(--size-4);padding-left:var(--size-7);padding-right:var(--size-6);padding-bottom:var(--size-3);margin-bottom:var(--size-2);background-color:var(--surface-4);border:1px solid var(--color-gray-2);border-radius:var(--size-3);box-shadow:0 0 0.5rem var(--color-shadow)}",
   map: null
 };
 function linkify(text) {
@@ -19,17 +19,18 @@ function linkify(text) {
   return text.replace(urlPattern, '<a href="$&" target="_blank">$&</a>').replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>').replace(emailAddressPattern, '<a href="mailto:$&" target="_blank">$&</a>');
 }
 function addLineBreaks(text) {
-  var regex = /\n|\r{1}/gim;
-  return text.replace(regex, "<br />");
+  var regex1 = /\n|\r{1}/gim;
+  var regex2 = /<br>{2,}/gim;
+  var revised = text.replace(regex1, "<br />");
+  return revised.replace(regex2, "<br />");
 }
 function convertLinkToImage(text) {
   var imageHidingAsLinkPatternRegex = /<a\s+href="([^"]+\.(png|gif|webp|jpeg|jpg))"\s+target="_blank">([^<]+)<\/a>/g;
   var imageSuffixPatternRegex = /\.(png|gif|webp|jpeg|jpg)$/g;
-  var br = "<br />";
   return text.replace(imageHidingAsLinkPatternRegex, (_, link, alt) => {
     var alt = link.replace(/^https?:\/\//, "").replace(imageSuffixPatternRegex, "");
-    return `${br}<a href="${link}" target="_blank"><img src="${link}" 
-  alt="${alt}"></a>${br}`;
+    return `<a href="${link}" target="_blank"><img src="${link}" 
+  alt="${alt}"></a>`;
   });
 }
 const FullPostCard = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -38,11 +39,11 @@ const FullPostCard = create_ssr_component(($$result, $$props, $$bindings, slots)
   if ($$props.post === void 0 && $$bindings.post && post !== void 0)
     $$bindings.post(post);
   $$result.css.add(css$2);
-  return `<div class="fullPostBlock svelte-drvpfs"><h5 data-svelte-h="svelte-r7k326">nostrgardn</h5> <h6 class="svelte-drvpfs">${escape(dayjs.unix(post.created_at ?? 0).format("MMM D, YYYY h:mm a"))}<br> </h6> <p><!-- HTML_TAG_START -->${convertLinkToImage(addLineBreaks(linkify(content)))}<!-- HTML_TAG_END --></p> </div>`;
+  return `<div class="fullPostBlock svelte-1xuh8jc"><h5 data-svelte-h="svelte-r7k326">nostrgardn</h5> <h6 class="svelte-1xuh8jc">${escape(dayjs.unix(post.created_at ?? 0).format("MMM D, YYYY h:mm a"))}<br> </h6> <p><!-- HTML_TAG_START -->${convertLinkToImage(addLineBreaks(linkify(content)))}<!-- HTML_TAG_END --></p> </div>`;
 });
 const PhotoOnlyFrame_svelte_svelte_type_style_lang = "";
 const css$1 = {
-  code: "h6.svelte-1nub2ck{color:rgb(193, 127, 196)}.photoOnlyBlock.svelte-1nub2ck{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:max-content;padding:1rem;background-color:var(--surface-5);border:1px solid var(--color-gray-2);border-radius:var(--size-3);box-shadow:0 0 0.5rem var(--color-shadow);margin-bottom:var(--size-2)}.image-container.svelte-1nub2ck{display:flex;flex-direction:row;margin-inline:2rem;align-items:center;justify-content:center}img.svelte-1nub2ck{border:10px double rgb(95, 195, 154);display:inline-block;width:350px;margin-right:10px}",
+  code: "h6.svelte-1t41el6{color:rgb(193, 127, 196)}.photoOnlyBlock.svelte-1t41el6{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;width:max-content;margin-top:var(--size-4);padding-top:var(--size-4);padding-inline:var(--size-4);padding-bottom:var(--size-3);margin-bottom:var(--size-2);background-color:var(--surface-5);border:1px solid var(--color-gray-2);border-radius:var(--size-3);box-shadow:0 0 0.5rem var(--color-shadow)}.image-container.svelte-1t41el6{display:flex;flex-direction:row;align-items:center;justify-content:center}img.svelte-1t41el6{border:10px double rgb(95, 195, 154);display:inline-block;width:350px;margin-right:10px}",
   map: null
 };
 function isImageLink(text) {
@@ -89,8 +90,8 @@ const PhotoOnlyFrame = create_ssr_component(($$result, $$props, $$bindings, slot
       return ` <p data-svelte-h="svelte-qeejp2">loading...</p> `;
     }
     return function() {
-      return ` ${photos.length > 0 ? `<div class="photoOnlyBlock svelte-1nub2ck"><h6 class="svelte-1nub2ck">${escape(dayjs.unix(post.created_at ?? 0).format("MMM D, YYYY h:mm a"))}<br> </h6> <div class="image-container svelte-1nub2ck">${each(photos, (photo) => {
-        return `<a${add_attribute("href", photo, 0)} target="_blank"><img${add_attribute("src", photo, 0)} alt="${escape(source, true) + " from user: " + escape(post.pubkey.substring(0, 9), true)}" class="svelte-1nub2ck"></a>`;
+      return ` ${photos.length > 0 ? `<div class="photoOnlyBlock svelte-1t41el6"><h6 class="svelte-1t41el6">${escape(dayjs.unix(post.created_at ?? 0).format("MMM D, YYYY h:mm a"))}<br> </h6> <div class="image-container svelte-1t41el6">${each(photos, (photo) => {
+        return `<a${add_attribute("href", photo, 0)} target="_blank"><img style="margin:9px;"${add_attribute("src", photo, 0)} alt="${escape(source, true) + " from user: " + escape(post.pubkey.substring(0, 9), true)}" class="svelte-1t41el6"></a>`;
       })}</div> <p>posted (${escape(source)}) by: ${escape(post.pubkey)}</p></div>` : ``} `;
     }();
   }(checkForPhotos())}`;
