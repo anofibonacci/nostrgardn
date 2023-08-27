@@ -7,14 +7,17 @@
 		<b>{config.title}</b>
 	</a>
 </nav>
-<h2><i>California, USA</i></h2>
-<p>Digging holes, planting seeds, and watering so others may find inspiration and solace in our gardn.
-</p>
+
+<h2>California, USA</h2>
+<p>Here a gardn, there a gardn, everywhere a nostrgardn.</p>
 <hr />
+
 <h2>Our Mission</h2>
-<p>To create a web presence enabled by nostr that celebrates our gardn 
-	as well as other nostrgardns around the world.</p>
-<p>&nbsp;</p>
+<p>We aim to be responsibile stewards of the gardn;<br />
+	protecting, preserving, building, and celebrating our ecosystems and habitats.
+<p>We tend this virtual space so to promote coding and practicing freedom technologies<br />
+	within a tranquil surrounding of nature's thriving abundance.</p>
+<hr />
 
 <h2>How it works</h2>
 <p>This site reads posts from a specific nostr relay and displays images from 
@@ -39,7 +42,7 @@
 </ul>
 
 <ol start="3">
-	<li>Does the post coming contain one of the specified tags?</li>
+	<li>Does the post coming from this unknown pleb contain one of the requiried tags?</li>
 </ol>
 <ul>
 	<li><strong>Yes</strong>; continue:</li>
@@ -47,7 +50,7 @@
 </ul>
 
 <ol start="4">
-	<li>Does the post coming contain one or more images?</li>
+	<li>Did the steadfast pleb include one or more images?</li>
 </ol>
 <ul>
 	<li><strong>Yes! Parse out the image(s) and display them.</strong><br />
@@ -58,6 +61,16 @@
 	<li style="font-style: italic;">Future implementations may include AI-driven 
 		image filters to assure that photos are nature-themed.</li>
 </ul>
+
+<hr />
+
+<h3>Lyrics in ma head</h3>
+<blockquote>
+	Lovin' the free and feelin' spirit<br />
+	Of huggin' a tree when you get near it<br />
+	Diggin' the snow & the rain & the bright sunshine<br />
+	Draggin' the line, draggin' the line
+</blockquote>
 
 <style>
 
