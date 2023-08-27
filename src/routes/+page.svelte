@@ -12,9 +12,7 @@
 
 <section>
 	<nav>
-		<ul class="links">
-			<li><a href="/about">nostrgardn</a></li>
-		</ul>
+		<h1><a href="/about">nostrgardn</a></h1>
 	</nav>
 	<!--
   <div class="image-container">
@@ -37,6 +35,12 @@
 </section>
 
 <style>
+	h1 {
+		font-size: 200px;
+		font-weight: var(--font-weight-3);
+		margin-block: var(--size-1);
+	}
+
 	.image-container {
 		text-align: left;
 	}
@@ -57,14 +61,9 @@
 		padding-block: var(--size-1);
 	}
 
-	.links {
-		margin-block: var(--size-1);
-	}
-
 	a {
 		color: inherit;
 		text-decoration: none;
-		font-size: 200px;
 	}
 
 	a:hover {
@@ -78,12 +77,6 @@
 			word-break: normal;
 			display: flex;
 			/* justify-content: space-between; */
-		}
-
-		.links {
-			display: flex;
-			gap: var(--size-3);
-			margin-block: 0;
 		}
 	}
 </style>

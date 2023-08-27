@@ -109,15 +109,26 @@ img {
 	border-radius: var(--radius-3);
 }
 
-ul,
+ul, ol {
+	font-size: var(--font-size-fluid-1);
+	font-weight: var(--font-weight-2);
+}
+  
 ol {
-	list-style: none;
-	padding: 0;
+	/* Set left margin for ordered lists */
+	margin-left: 45px; /* Adjust this value as needed */
 }
 
-li {
-	padding-inline-start: 0;
+ul {
+	/* Set left margin for unordered lists */
+	margin-left: 90px; /* Adjust this value as needed */
+	line-height: 1.1;
 }
+  
+li {
+	margin-bottom: 9px;
+}
+  
 
 .surface-1 {
 	background-color: var(--surface-1);
