@@ -13,9 +13,9 @@ html {
 	--surface-1-dark: var(--gray-12);
 	--surface-2-dark: var(--gray-11);
 	--surface-3-dark: var(--gray-10);
-	--surface-4-dark: var(--gray-9);
-	--surface-5-dark: var(--gray-8);
-	--background-dark: var(--gradient-23);
+	--surface-4-dark: var(--stone-10);
+	--surface-5-dark: var(--stone-11);
+	--background-dark: var(--gradient-8);
 	--border-dark: var(--gray-9);
 
 	/* light */
@@ -25,8 +25,8 @@ html {
 	--surface-1-light: var(--gray-0);
 	--surface-2-light: var(--gray-1);
 	--surface-3-light: var(--gray-2);
-	--surface-4-light: var(--gray-3);
-	--surface-5-light: var(--gray-4);
+	--surface-4-light: var(--jungle-3);
+	--surface-5-light: var(--teal-10);
 	--background-light: var(--gradient-30);
 	--border-light: var(--gray-4);
 }
