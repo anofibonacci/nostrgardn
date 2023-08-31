@@ -95,6 +95,7 @@
 		border: 1px solid var(--color-gray-2);
 		border-radius: var(--size-3);
 		box-shadow: 0 0 0.5rem var(--color-shadow);
+		border: 5px solid white;
 	}
 	.image-container {
 		display: flex;
