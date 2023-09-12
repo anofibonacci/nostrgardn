@@ -5,9 +5,9 @@ import { writable } from 'svelte/store';
 const ndk = new NDK({
 	explicitRelayUrls: [
 		'wss://gardn.nostr1.com'
+		,'wss://purplepag.es'
 		//,'ws://localhost:8080'
 		//,'wss://relay.damus.io'
-		//,'wss://purplepag.es'
 		//,'wss://relay.nostr.band'
 		//,'wss://nos.lol'
 		//,'wss://relay.snort.social'
