@@ -2,6 +2,7 @@
 	import FullPostCard from '$lib/components/FullPostCard.svelte';
 	import PhotoOnlyFrame from '$lib/components/PhotoOnlyFrame.svelte';
 	import ndkStore from '$lib/stores/ndk';
+	import { gardnNpub } from '$lib/config';
 
 	const eventsPromise = $ndkStore.fetchEvents({
 		kinds: [1]
@@ -25,7 +26,7 @@
 
 	{#await eventsPromise then events}
 		{#each Array.from(events) as post}
-			{#if post.pubkey.substring(0, 9) == myNine}
+			{#if post.pubkey == gardnNpub}
 				<FullPostCard {post} />
 			{:else}
 				<PhotoOnlyFrame {post} />

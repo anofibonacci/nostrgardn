@@ -1,6 +1,7 @@
 <script lang="ts">
-	import ndk from '$lib/stores/ndk';
+	//import ndkStore from '$lib/stores/ndk';
 	import type { NDKEvent } from '@nostr-dev-kit/ndk';
+	import { gardnNpub } from '$lib/config';
 	import dayjs from 'dayjs';
 
 	export let post: NDKEvent;
@@ -40,7 +41,7 @@
 </script>
 
 <div class="fullPostBlock">
-	<h5>nostrgardn</h5>
+	<h5><a href="https://primal.net/profile/{gardnNpub}" target="_blank">nostrgardn</a></h5>
 	<h6>
 		{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
 	</h6>

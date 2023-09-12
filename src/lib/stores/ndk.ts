@@ -3,7 +3,15 @@ import NDK from '@nostr-dev-kit/ndk';
 import { writable } from 'svelte/store';
 
 const ndk = new NDK({
-	explicitRelayUrls: ['wss://gardn.nostr1.com'],
+	explicitRelayUrls: [
+		'wss://gardn.nostr1.com'
+		//,'ws://localhost:8080'
+		//,'wss://relay.damus.io'
+		//,'wss://purplepag.es'
+		//,'wss://relay.nostr.band'
+		//,'wss://nos.lol'
+		//,'wss://relay.snort.social'
+	],
 	debug: false
 });
 if (browser) {
