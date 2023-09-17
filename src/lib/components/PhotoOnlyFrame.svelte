@@ -1,11 +1,17 @@
 <script lang="ts">
-	import type { NDKEvent } from '@nostr-dev-kit/ndk';
+	import type { NDKEvent, NDKUser } from '@nostr-dev-kit/ndk';
+	import ndkStore from '$lib/stores/ndk';
+    import { truncatedBech } from '$lib/utils';
 	import dayjs from 'dayjs';
 
 	export let post: NDKEvent;
 	//console.log("photo only post: ", post);
 
 	let content: string = post.content;
+	//console.log("content: ", post.content);
+
+	//let guest: NDKUser = post.pubkey;
+
 	let source: string = '';
 
 	let photos: string[] = [];
@@ -48,6 +54,19 @@
 			console.log('no photos');
 		}
 	}
+
+    function fetchUsername(ndkUser: NDKUser): Promise<string> {
+        let name: string;
+        return new Promise((resolve, reject) => {
+            ndkUser.fetchProfile().then(() => {
+                name =
+                    ndkUser.profile?.displayName ||
+                    ndkUser.profile?.name ||
+                    truncatedBech(ndkUser.npub);
+                resolve(name);
+            });
+        });
+    }
 </script>
 
 {#await checkForPhotos()}
@@ -55,9 +74,6 @@
 {:then}
 	{#if photos.length > 0}
 		<div class="photoOnlyBlock">
-			<h6>
-				{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
-			</h6>
 			<div class="image-container">
 				{#each photos as photo}
 					<a href={photo} target="_blank"
@@ -69,7 +85,15 @@
 					>
 				{/each}
 			</div>
-			<p>posted ({source}) by: {post.pubkey}</p>
+			<p>guest posted by: 
+				<a href="https://primal.net/profile/{post.pubkey}" target="_blank">
+					{#await fetchUsername($ndkStore.getUser({ hexpubkey: post.pubkey })) then name}
+						@{name}
+					{/await}
+				</a></p>
+				<h6>
+					{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
+				</h6>
 		</div>
 	{/if}
 {:catch error}
