@@ -3,28 +3,35 @@
 </script>
 
 <nav>
-	<a href="/" class="title">
-		<b>{config.title}</b>
-	</a>
+	<h1><a href="/" class="title">{config.title}</a></h1>
 </nav>
 
 <h2>California, USA</h2>
 <p>Here a gardn, there a gardn, everywhere a nostrgardn.</p>
 <hr />
 
-<h2>Our Mission</h2>
+<h2>Mission</h2>
+<p>&nbsp;</p>
+<h3>nostrgardn</h3>
 <p>We aim to be responsibile stewards of the gardn;<br />
 	protecting, preserving, building, and celebrating our ecosystems and habitats.
 <p>We tend this virtual space so to promote coding and practicing freedom technologies<br />
 	within a tranquil surrounding of nature's thriving abundance.</p>
+<p>&nbsp;</p>
+<h3>duobudo</h3>
+<p>As a team, we strive to learn one thing at a time, together, and learn it well.</p>
+<p>Further, we believe that the future is decentralized and that Nostr vibrates as did 
+	glastnost and gutenberg in their time.</p>
 <hr />
 
 <h2>How it works</h2>
+<p>&nbsp;</p>
 <p>This site reads posts from a specific nostr relay and displays images from 
 	selected kind 1 events.</p>
 <p>We determine which posts to display by this decision tree:<br />&nbsp;</p>
 <ol>
-	<li>Is the post coming from our specific relay?</li>
+	<li>Is the post coming from 
+		<a href="https://relay.tools/" target="_blank">our specific relay</a>?</li>
 </ol>
 <ul>
 	<li><strong>Yes</strong>; continue:<br />&nbsp;</li>
@@ -61,21 +68,28 @@
 	<li style="font-style: italic;">Future implementations may include AI-driven 
 		image filters to assure that photos are nature-themed.</li>
 </ul>
+<hr />
 
+<h2>Using NDK</h2>
+<p>This site reads posts from a specific nostr relay and displays images from 
+	selected kind 1 events...</p>
 <hr />
 
 <h3>Lyrics in ma head</h3>
 <blockquote>
 	Lovin' the free and feelin' spirit<br />
 	Of huggin' a tree when you get near it<br />
-	Diggin' the snow & the rain & the bright sunshine<br />
-	Draggin' the line, draggin' the line
+	Diggin' the snow and the rain<br />
+	&nbsp; &nbsp; and the bright sunshine<br />
+	Draggin' the line
 </blockquote>
 
 <style>
 
-	a {
+	h1 {
 		font-size: 100px;
+	}
+	a {
 		color: inherit;
 	}
 

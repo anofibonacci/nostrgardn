@@ -49,8 +49,22 @@
 </div>
 
 <style>
+	p {
+		font-size: var(--font-size-3);
+		font-weight: var(--font-weight-2);
+		line-height: var(--line-height-3);
+		margin-block: var(--size-1);
+		text-align: left;
+		color: var(--text-1);
+	}
+	h5 {
+		color: var(--text-2);
+	}
 	h6 {
-		color: rgb(193, 127, 196);
+		color: var(--text-3);
+	}
+	a {
+		color: var(--text-a);
 	}
 	.fullPostBlock {
 		display: flex;
@@ -64,10 +78,9 @@
 		padding-right: var(--size-6);
 		padding-bottom: var(--size-3);
 		margin-bottom: var(--size-2);
-		background-color: var(--surface-4);
-		border: 1px solid var(--color-gray-2);
+		background-color: var(--surface-2);
+		border: 4px solid var(--surface-3);
 		border-radius: var(--size-3);
 		box-shadow: 0 0 0.5rem var(--color-shadow);
-		border: 5px solid var(--teal-6);
 	}
 </style>

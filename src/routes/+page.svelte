@@ -7,22 +7,21 @@
 	const eventsPromise = $ndkStore.fetchEvents({
 		kinds: [1]
 	});
-	const myNine = 'e2b1b6aba';
-	//post.pubkey.substring(0,9) == myNine
 </script>
 
 <section>
 	<nav>
 		<h1><a href="/about">nostrgardn</a></h1>
 	</nav>
-	<!--
-  <div class="image-container">
-    <img src="IMG_8530.jpeg" alt="idk" />
-    <img src="IMG_8531.jpeg" alt="idk" />
-    <img src="IMG_8532.jpeg" alt="idk" />
-  </div>
-  <p>&nbsp;</p>
-  -->
+
+	<!-- keeping this for later implementation of static images
+	<div class="image-container">
+		<img src="IMG_8530.jpeg" alt="idk" />
+		<img src="IMG_8531.jpeg" alt="idk" />
+		<img src="IMG_8532.jpeg" alt="idk" />
+	</div>
+	<p>&nbsp;</p>
+	-->
 
 	<center>
 	{#await eventsPromise then events}
@@ -39,27 +38,12 @@
 
 <style>
 	h1 {
+		color: var(--brand);
 		transform: translate(35%);
 		font-size: 200px;
 		font-weight: var(--font-weight-3);
 		margin-block: var(--size-1);
 	}
-
-	/*.image-container {
-		text-align: left;
-	}
-
-	img {
-		border: 10px double rgb(95, 195, 154);
-		display: inline-block;
-		width: 350px;
-		margin-right: 10px;
-	}
-
-	img:hover {
-		border: 5px solid white;
-		box-shadow: rgb(95, 195, 154) 0px 0px 10px;
-	}*/
 
 	nav {
 		padding-block: var(--size-1);
@@ -83,4 +67,24 @@
 			/* justify-content: space-between; */
 		}
 	}
+
+/* 
+//hold this style for later when we display our static images
+
+.image-container {
+	text-align: left;
+}
+
+img {
+	border: 10px double rgb(95, 195, 154);
+	display: inline-block;
+	width: 350px;
+	margin-right: 10px;
+}
+
+img:hover {
+	border: 5px solid white;
+	box-shadow: rgb(95, 195, 154) 0px 0px 10px;
+}
+*/
 </style>

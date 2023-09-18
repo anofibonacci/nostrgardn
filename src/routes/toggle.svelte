@@ -22,6 +22,7 @@
 	div {
 		stroke-width: 3px;
 		size: 13px;
+		color: var(--brand);
 	}
 
 	button {
