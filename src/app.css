@@ -28,7 +28,6 @@ html {
 	--surface-4-light: var(--jungle-3);
 	--surface-5-light: var(--teal-10);
 	--background-light: var(--gradient-30);
-	/*filter: var(--noise-filter-5);*/
 	--border-light: var(--gray-4);
 }
 

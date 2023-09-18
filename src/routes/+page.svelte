@@ -24,6 +24,7 @@
   <p>&nbsp;</p>
   -->
 
+	<center>
 	{#await eventsPromise then events}
 		{#each Array.from(events) as post}
 			{#if post.pubkey == gardnNpub}
@@ -33,16 +34,18 @@
 			{/if}
 		{/each}
 	{/await}
+	</center>
 </section>
 
 <style>
 	h1 {
+		transform: translate(35%);
 		font-size: 200px;
 		font-weight: var(--font-weight-3);
 		margin-block: var(--size-1);
 	}
 
-	.image-container {
+	/*.image-container {
 		text-align: left;
 	}
 
@@ -53,7 +56,7 @@
 		margin-right: 10px;
 	}
 
-	/*img:hover {
+	img:hover {
 		border: 5px solid white;
 		box-shadow: rgb(95, 195, 154) 0px 0px 10px;
 	}*/
