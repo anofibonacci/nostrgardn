@@ -1,8 +1,8 @@
 <script lang="ts">
 	import FullPostCard from '$lib/components/FullPostCard.svelte';
 	import PhotoOnlyFrame from '$lib/components/PhotoOnlyFrame.svelte';
-	import ndkStore from '$lib/stores/ndk';
 	import { gardnNpub } from '$lib/config';
+	import ndkStore from '$lib/stores/ndk';
 
 	const eventsPromise = $ndkStore.fetchEvents({
 		kinds: [1]
@@ -24,15 +24,15 @@
 	-->
 
 	<center>
-	{#await eventsPromise then events}
-		{#each Array.from(events) as post}
-			{#if post.pubkey == gardnNpub}
-				<FullPostCard {post} />
-			{:else}
-				<PhotoOnlyFrame {post} />
-			{/if}
-		{/each}
-	{/await}
+		{#await eventsPromise then events}
+			{#each Array.from(events) as post}
+				{#if post.pubkey == gardnNpub}
+					<FullPostCard {post} />
+				{:else}
+					<PhotoOnlyFrame {post} />
+				{/if}
+			{/each}
+		{/await}
 	</center>
 </section>
 
@@ -68,7 +68,7 @@
 		}
 	}
 
-/* 
+	/* 
 //hold this style for later when we display our static images
 
 .image-container {

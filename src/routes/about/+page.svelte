@@ -13,25 +13,35 @@
 <h2>Mission</h2>
 <p>&nbsp;</p>
 <h3>nostrgardn</h3>
-<p>We aim to be responsibile stewards of the gardn;<br />
+<p>
+	We aim to be responsibile stewards of the gardn;<br />
 	protecting, preserving, building, and celebrating our ecosystems and habitats.
-<p>We tend this virtual space so to promote coding and practicing freedom technologies<br />
-	within a tranquil surrounding of nature's thriving abundance.</p>
+</p>
+<p>
+	We tend this virtual space so to promote coding and practicing freedom technologies<br />
+	within a tranquil surrounding of nature's thriving abundance.
+</p>
 <p>&nbsp;</p>
 <h3>duobudo</h3>
 <p>As a team, we strive to learn one thing at a time, together, and learn it well.</p>
-<p>Further, we believe that the future is decentralized and that Nostr vibrates as did 
-	glastnost and gutenberg in their time.</p>
+<p>
+	Further, we believe that the future is decentralized and that Nostr vibrates as did glastnost
+	and gutenberg in their time.
+</p>
 <hr />
 
 <h2>How it works</h2>
 <p>&nbsp;</p>
-<p>This site reads posts from a specific nostr relay and displays images from 
-	selected kind 1 events.</p>
+<p>
+	This site reads posts from a specific nostr relay and displays images from selected kind 1
+	events.
+</p>
 <p>We determine which posts to display by this decision tree:<br />&nbsp;</p>
 <ol>
-	<li>Is the post coming from 
-		<a href="https://relay.tools/" target="_blank">our specific relay</a>?</li>
+	<li>
+		Is the post coming from
+		<a href="https://relay.tools/" target="_blank">our specific relay</a>?
+	</li>
 </ol>
 <ul>
 	<li><strong>Yes</strong>; continue:<br />&nbsp;</li>
@@ -41,10 +51,13 @@
 	<li>Is the post coming from our white label pubkey(s)?</li>
 </ol>
 <ul>
-	<li><strong>Yes! Print the full kind 1 event.</strong><br />
-		<span style="font-style: italic;">Future implementations may only display posts that 
-			meet specific conditions (have photos, use tags, etc.), but for now we display 
-			any k1 event.</span></li>
+	<li>
+		<strong>Yes! Print the full kind 1 event.</strong><br />
+		<span style="font-style: italic;"
+			>Future implementations may only display posts that meet specific conditions (have
+			photos, use tags, etc.), but for now we display any k1 event.</span
+		>
+	</li>
 	<li><strong>No, it's from another pubkey</strong>. Continue:<br />&nbsp;</li>
 </ul>
 
@@ -60,19 +73,26 @@
 	<li>Did the steadfast pleb include one or more images?</li>
 </ol>
 <ul>
-	<li><strong>Yes! Parse out the image(s) and display them.</strong><br />
-		<span style="font-style: italic;">We will not display textual content, 
-			though we may display metadata (author name, posted date, etc.)
-		</span></li>
+	<li>
+		<strong>Yes! Parse out the image(s) and display them.</strong><br />
+		<span style="font-style: italic;"
+			>We will not display textual content, though we may display metadata (author name,
+			posted date, etc.)
+		</span>
+	</li>
 	<li><strong>No</strong>. Sorry, you almost made it. Better luck next time.</li>
-	<li style="font-style: italic;">Future implementations may include AI-driven 
-		image filters to assure that photos are nature-themed.</li>
+	<li style="font-style: italic;">
+		Future implementations may include AI-driven image filters to assure that photos are
+		nature-themed.
+	</li>
 </ul>
 <hr />
 
 <h2>Using NDK</h2>
-<p>This site reads posts from a specific nostr relay and displays images from 
-	selected kind 1 events...</p>
+<p>
+	This site reads posts from a specific nostr relay and displays images from selected kind 1
+	events...
+</p>
 <hr />
 
 <h3>Lyrics in ma head</h3>
@@ -85,7 +105,6 @@
 </blockquote>
 
 <style>
-
 	h1 {
 		font-size: 100px;
 	}

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { NDKEvent, NDKUser } from '@nostr-dev-kit/ndk';
 	import ndkStore from '$lib/stores/ndk';
-    import { truncatedBech } from '$lib/utils';
+	import { truncatedBech } from '$lib/utils';
+	import type { NDKEvent, NDKUser } from '@nostr-dev-kit/ndk';
 	import dayjs from 'dayjs';
 
 	export let post: NDKEvent;
@@ -55,18 +55,18 @@
 		}
 	}
 
-    function fetchUsername(ndkUser: NDKUser): Promise<string> {
-        let name: string;
-        return new Promise((resolve, reject) => {
-            ndkUser.fetchProfile().then(() => {
-                name =
-                    ndkUser.profile?.displayName ||
-                    ndkUser.profile?.name ||
-                    truncatedBech(ndkUser.npub);
-                resolve(name);
-            });
-        });
-    }
+	function fetchUsername(ndkUser: NDKUser): Promise<string> {
+		let name: string;
+		return new Promise((resolve, reject) => {
+			ndkUser.fetchProfile().then(() => {
+				name =
+					ndkUser.profile?.displayName ||
+					ndkUser.profile?.name ||
+					truncatedBech(ndkUser.npub);
+				resolve(name);
+			});
+		});
+	}
 </script>
 
 {#await checkForPhotos()}
@@ -85,15 +85,17 @@
 					>
 				{/each}
 			</div>
-			<p>guest posted by: 
+			<p>
+				guest posted by:
 				<a href="https://primal.net/profile/{post.pubkey}" target="_blank">
 					{#await fetchUsername($ndkStore.getUser({ hexpubkey: post.pubkey })) then name}
 						@{name}
 					{/await}
-				</a></p>
-				<h6>
-					{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
-				</h6>
+				</a>
+			</p>
+			<h6>
+				{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
+			</h6>
 		</div>
 	{/if}
 {:catch error}

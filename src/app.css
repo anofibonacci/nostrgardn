@@ -127,11 +127,12 @@ img {
 	border-radius: var(--radius-3);
 }
 
-ul, ol {
+ul,
+ol {
 	font-size: var(--font-size-fluid-1);
 	font-weight: var(--font-weight-2);
 }
-  
+
 ol {
 	/* Set left margin for ordered lists */
 	margin-left: 45px; /* Adjust this value as needed */
@@ -142,11 +143,10 @@ ul {
 	margin-left: 90px; /* Adjust this value as needed */
 	line-height: 1.1;
 }
-  
+
 li {
 	margin-bottom: 9px;
 }
-  
 
 .surface-1 {
 	background-color: var(--surface-1);
