@@ -2,9 +2,9 @@
 	import FullPostCard from '$lib/components/FullPostCard.svelte';
 	import PhotoOnlyFrame from '$lib/components/PhotoOnlyFrame.svelte';
 	import { gardnNpub } from '$lib/config';
-	import ndkStore from '$lib/stores/ndk';
+	import ndk from '$lib/stores/ndk';
 
-	const eventsPromise = $ndkStore.fetchEvents({
+	const eventsPromise = $ndk.fetchEvents({
 		kinds: [1]
 	});
 </script>

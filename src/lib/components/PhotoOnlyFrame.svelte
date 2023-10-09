@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ndkStore from '$lib/stores/ndk';
+	import ndk from '$lib/stores/ndk';
 	import { truncatedBech } from '$lib/utils';
 	import type { NDKEvent, NDKUser } from '@nostr-dev-kit/ndk';
 	import dayjs from 'dayjs';
@@ -88,7 +88,7 @@
 			<p>
 				guest posted by:
 				<a href="https://primal.net/profile/{post.pubkey}" target="_blank">
-					{#await fetchUsername($ndkStore.getUser({ hexpubkey: post.pubkey })) then name}
+					{#await fetchUsername($ndk.getUser({ hexpubkey: post.pubkey })) then name}
 						@{name}
 					{/await}
 				</a>

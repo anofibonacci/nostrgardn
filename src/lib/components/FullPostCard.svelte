@@ -1,5 +1,4 @@
 <script lang="ts">
-	//import ndkStore from '$lib/stores/ndk';
 	import { gardnNpub } from '$lib/config';
 	import type { NDKEvent } from '@nostr-dev-kit/ndk';
 	import dayjs from 'dayjs';
