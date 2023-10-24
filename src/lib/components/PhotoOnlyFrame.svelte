@@ -40,13 +40,16 @@
 	async function checkForPhotos() {
 		if (post.tags.length > 0) {
 			for (let tag of post.tags) {
-				if (tag[0] == 'r' && isImageLink(tag[1])) {
+				if (tag[0] == 'r' && isImageLink(tag[1]) && !photos.includes(tag[1])) {
 					photos.push(tag[1]);
 					source = 'tag';
 				}
 			}
 		} else if (grabImagesFromPost(content)) {
 			for (let imageUrl of grabImagesFromPost(content)) {
+				if (photos.includes(imageUrl)) {
+    				continue;
+				}
 				photos.push(imageUrl);
 				source = 'embed';
 			}
