@@ -13,7 +13,7 @@
 <div class="layout">
 	<Header />
 
-	<main>
+	<main class="items-center">
 		<PageTransition url={data.url}>
 			<slot />
 		</PageTransition>

@@ -10,9 +10,10 @@
 </script>
 
 <section>
-	<nav>
-		<h1><a href="/about">nostrgardn</a></h1>
-	</nav>
+		<center>
+			<h1><a href="/about">nostrgardn</a></h1>
+			<p>&nbsp</p>
+		</center>
 
 	<!-- keeping this for later implementation of static images
 	<div class="image-container">
@@ -39,10 +40,12 @@
 <style>
 	h1 {
 		color: var(--brand);
-		transform: translate(35%);
-		font-size: 200px;
+		font-size: 171px;
 		font-weight: var(--font-weight-3);
-		margin-block: var(--size-1);
+		margin-block: var(--size-3); 
+		/* 
+		transform: translate(35%);
+		*/
 	}
 
 	nav {
