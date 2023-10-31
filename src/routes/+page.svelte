@@ -27,12 +27,12 @@
 	<center>
 		{#await eventsPromise then events}
 			{#each Array.from(events) as post}
-				<p>&nbsp;</p>
-				{#if post.pubkey == gardnNpub}
-					<FullPostCard {post} />
-				{:else}
-					<PhotoOnlyFrame {post} />
-				{/if}
+					<p>&nbsp;</p>
+					{#if post.pubkey == gardnNpub}
+						<FullPostCard {post} />
+					{:else}
+						<PhotoOnlyFrame {post} />
+					{/if}
 			{/each}
 		{/await}
 	</center>

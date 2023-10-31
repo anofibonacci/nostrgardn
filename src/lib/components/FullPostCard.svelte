@@ -2,9 +2,10 @@
 	import { gardnNpub } from '$lib/config';
 	import type { NDKEvent } from '@nostr-dev-kit/ndk';
 	import dayjs from 'dayjs';
+	import { skips } from '$lib/skip_these';
 
 	export let post: NDKEvent;
-	//console.log("full post: ", post);
+	console.log("full post: ", post);
 
 	let content: string = post.content;
 
@@ -37,6 +38,15 @@
   alt="${alt}"></a>`;
 		});
 	}
+
+	function skipThisPost(id: string) {
+		if (skips.includes(id)) {
+			console.log("skipping post: ", id);
+			return true;
+		} else {
+			return false;
+		}
+	}
 </script>
 
 <div class="fullPostBlock">
@@ -44,7 +54,11 @@
 	<h6>
 		{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
 	</h6>
-	<p>{@html convertLinkToImage(addLineBreaks(linkify(content)))}</p>
+	{#if skipThisPost(post.id)}
+			<p>This picture did not load 😢</p>
+	{:else}
+		<p>{@html convertLinkToImage(addLineBreaks(linkify(content)))}</p>
+	{/if}
 </div>
 
 <style>
