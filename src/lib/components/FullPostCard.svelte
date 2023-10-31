@@ -4,7 +4,7 @@
 	import dayjs from 'dayjs';
 
 	export let post: NDKEvent;
-	//console.log("full post: ", post);
+	console.log("full post: ", post);
 
 	let content: string = post.content;
 
