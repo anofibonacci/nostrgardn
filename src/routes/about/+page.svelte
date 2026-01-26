@@ -2,9 +2,14 @@
 	import * as config from '$lib/config';
 </script>
 
-<nav>
-	<h1><a href="/" class="title">{config.title}</a></h1>
-</nav>
+<svelte:head>
+	<title>About - {config.site.title}</title>
+</svelte:head>
+
+<header class="page-header">
+	<h1><a href="/">{config.site.title}</a></h1>
+	<p class="subtitle">about the garden</p>
+</header>
 
 <h2>California, USA</h2>
 <p>Here a gardn, there a gardn, everywhere a nostrgardn.</p>
@@ -105,24 +110,49 @@
 </blockquote>
 
 <style>
-	h1 {
-		font-size: 100px;
+	.page-header {
+		text-align: center;
+		margin-bottom: var(--size-5);
 	}
-	a {
+
+	.page-header h1 {
+		color: var(--brand);
+		font-size: clamp(2.5rem, 12vw, 6rem);
+		font-weight: var(--font-weight-3);
+		margin-block: var(--size-3);
+		margin-bottom: 0;
+	}
+
+	.page-header h1 a {
 		color: inherit;
+		text-decoration: none;
+	}
+
+	.page-header h1 a:hover {
+		color: white;
+		text-shadow: rgb(58, 161, 130) 0px 0px 10px;
+	}
+
+	.subtitle {
+		color: var(--text-2);
+		font-size: var(--font-size-fluid-0);
+		font-style: italic;
+		margin-top: var(--size-1);
+	}
+
+	a {
+		color: var(--brand);
 	}
 
 	a:hover {
-		text-decoration: none; /*needs this or else an underline shows*/
+		text-decoration: none;
 		color: white;
 		text-shadow: rgb(58, 161, 130) 0px 0px 10px;
 	}
 
 	p {
-		font-size: var(--font-size-fluid-1);
+		font-size: var(--font-size-fluid-0);
 		font-weight: var(--font-weight-2);
-		white-space: nowrap;
-		word-break: normal;
-		display: flex;
+		line-height: 1.6;
 	}
 </style>

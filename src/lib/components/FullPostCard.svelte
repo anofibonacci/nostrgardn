@@ -1,99 +1,175 @@
 <script lang="ts">
-	import { gardnNpub } from '$lib/config';
-	import type { NDKEvent } from '@nostr-dev-kit/ndk';
+	import type { FilteredPost } from '$lib/filters';
+	import { whitelist, display } from '$lib/config';
+	import { truncatedBech } from '$lib/utils';
 	import dayjs from 'dayjs';
-	import { skips } from '$lib/skip_these';
 
-	export let post: NDKEvent;
-	console.log("full post: ", post);
+	export let post: FilteredPost;
 
-	let content: string = post.content;
+	// Get display name with fallbacks
+	$: authorName = post.author.displayName || post.author.name || 'nostrgardn';
+	$: authorPicture = post.author.picture;
+	$: formattedDate = dayjs.unix(post.createdAt).format(display.dateFormat);
+	$: content = post.event.content;
 
-	function linkify(text: string) {
-		var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
-		var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-		var emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
+	/**
+	 * Convert URLs in text to clickable links
+	 */
+	function linkify(text: string): string {
+		const urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+		const pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+		const emailPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
+
 		return text
-			.replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
-			.replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>')
-			.replace(emailAddressPattern, '<a href="mailto:$&" target="_blank">$&</a>');
+			.replace(urlPattern, '<a href="$&" target="_blank" rel="noopener">$&</a>')
+			.replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank" rel="noopener">$2</a>')
+			.replace(emailPattern, '<a href="mailto:$&">$&</a>');
 	}
 
-	function addLineBreaks(text: string) {
-		var regex1 = /\n|\r{1}/gim;
-		var regex2 = /<br>{2,}/gim;
-		var revised = text.replace(regex1, '<br />');
-		return revised.replace(regex2, '<br />');
+	/**
+	 * Convert newlines to <br> tags
+	 */
+	function addLineBreaks(text: string): string {
+		return text.replace(/\n|\r/gim, '<br />').replace(/<br\s*\/?>\s*(<br\s*\/?>)+/gim, '<br /><br />');
 	}
 
-	function convertLinkToImage(text: string) {
-		var imageHidingAsLinkPatternRegex =
-			/<a\s+href="([^"]+\.(png|gif|webp|jpeg|jpg))"\s+target="_blank">([^<]+)<\/a>/g;
-		var imageSuffixPatternRegex = /\.(png|gif|webp|jpeg|jpg)$/g;
-		var br = '<br />';
-		var p = '<p>&nbsp;</p>';
-		return text.replace(imageHidingAsLinkPatternRegex, (_, link, alt) => {
-			var alt = link.replace(/^https?:\/\//, '').replace(imageSuffixPatternRegex, '');
-			return `<a href="${link}" target="_blank"><img src="${link}" 
-  alt="${alt}"></a>`;
+	/**
+	 * Convert image URLs that were linkified back to actual images
+	 */
+	function convertLinkToImage(text: string): string {
+		const imagePattern = /<a\s+href="([^"]+\.(png|gif|webp|jpeg|jpg|avif)(\?[^"]*)?)"\s+[^>]*>([^<]+)<\/a>/gi;
+
+		return text.replace(imagePattern, (_, url) => {
+			return `<a href="${url}" target="_blank" rel="noopener"><img src="${url}" alt="Posted image" loading="lazy" /></a>`;
 		});
 	}
 
-	function skipThisPost(id: string) {
-		if (skips.includes(id)) {
-			console.log("skipping post: ", id);
-			return true;
-		} else {
-			return false;
-		}
+	/**
+	 * Process content for display
+	 */
+	function processContent(text: string): string {
+		return convertLinkToImage(addLineBreaks(linkify(text)));
 	}
 </script>
 
-<div class="fullPostBlock">
-	<h5><a href="https://primal.net/profile/{gardnNpub}" target="_blank">nostrgardn</a></h5>
-	<h6>
-		{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
-	</h6>
-	{#if skipThisPost(post.id)}
-			<p>This picture did not load 😢</p>
-	{:else}
-		<p>{@html convertLinkToImage(addLineBreaks(linkify(content)))}</p>
+<article class="full-post">
+	<header>
+		{#if authorPicture}
+			<img src={authorPicture} alt="" class="avatar" />
+		{/if}
+		<div class="meta">
+			<a
+				href="https://primal.net/profile/{post.author.pubkey}"
+				target="_blank"
+				rel="noopener"
+				class="author"
+			>
+				{authorName}
+			</a>
+			<time datetime={new Date(post.createdAt * 1000).toISOString()}>
+				{formattedDate}
+			</time>
+		</div>
+	</header>
+
+	<div class="content">
+		{@html processContent(content)}
+	</div>
+
+	<!-- Show extracted images that might not be in content -->
+	{#if post.images.length > 0}
+		<div class="images">
+			{#each post.images as src}
+				{#if !content.includes(src)}
+					<a href={src} target="_blank" rel="noopener">
+						<img {src} alt="Posted image" loading="lazy" />
+					</a>
+				{/if}
+			{/each}
+		</div>
 	{/if}
-</div>
+</article>
 
 <style>
-	p {
-		font-size: var(--font-size-3);
-		font-weight: var(--font-weight-2);
-		line-height: var(--line-height-3);
-		margin-block: var(--size-1);
-		text-align: left;
-		color: var(--text-1);
-	}
-	h5 {
-		color: var(--text-2);
-	}
-	h6 {
-		color: var(--text-3);
-	}
-	a {
-		color: var(--text-a);
-	}
-	.fullPostBlock {
+	.full-post {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		justify-content: center;
-		width: max-content;
-		margin-top: var(--size-4);
-		padding-top: var(--size-4);
-		padding-left: var(--size-7);
-		padding-right: var(--size-6);
-		padding-bottom: var(--size-3);
-		margin-bottom: var(--size-2);
+		width: 100%;
+		max-width: 600px;
+		padding: var(--size-4);
 		background-color: var(--surface-2);
 		border: 4px solid var(--surface-3);
-		border-radius: var(--size-3);
-		box-shadow: 0 0 0.5rem var(--color-shadow);
+		border-radius: var(--radius-3);
+		box-shadow: 0 0 0.5rem var(--surface-1);
+	}
+
+	header {
+		display: flex;
+		align-items: center;
+		gap: var(--size-3);
+		margin-bottom: var(--size-3);
+	}
+
+	.avatar {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.meta {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.author {
+		color: var(--text-2);
+		font-weight: var(--font-weight-5);
+		text-decoration: none;
+	}
+
+	.author:hover {
+		color: var(--text-ahover);
+	}
+
+	time {
+		color: var(--text-3);
+		font-size: var(--font-size-0);
+	}
+
+	.content {
+		font-size: var(--font-size-3);
+		font-weight: var(--font-weight-2);
+		line-height: var(--line-height-3);
+		color: var(--text-1);
+		word-break: break-word;
+	}
+
+	.content :global(a) {
+		color: var(--text-a);
+	}
+
+	.content :global(a:hover) {
+		color: var(--text-ahover);
+	}
+
+	.content :global(img),
+	.images img {
+		max-width: 100%;
+		height: auto;
+		margin-block: var(--size-2);
+		border-radius: var(--radius-2);
+	}
+
+	.images {
+		display: flex;
+		flex-direction: column;
+		gap: var(--size-2);
+		margin-top: var(--size-3);
+	}
+
+	.images a {
+		display: block;
 	}
 </style>

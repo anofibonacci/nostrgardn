@@ -28,7 +28,9 @@ const config = {
 	extensions: ['.svelte', '.md'],
 	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
 	kit: {
-		adapter: adapter()
+		adapter: adapter({
+			fallback: 'index.html' // SPA mode - required for client-side routing
+		})
 	}
 };
 

@@ -1,13 +1,25 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import '../app.css';
 	import Footer from './footer.svelte';
 	import Header from './header.svelte';
 	import PageTransition from './transition.svelte';
+	import { prefetchPosts } from '$lib/stores/posts';
 	import 'open-props/buttons';
 	import 'open-props/normalize';
 	import 'open-props/style';
 
 	export let data;
+
+	// Background prefetch: start loading posts as soon as the app mounts
+	// This means data will likely be ready by the time user navigates to /feed
+	onMount(() => {
+		if (browser) {
+			console.log('[nostrgardn] Starting background prefetch...');
+			prefetchPosts();
+		}
+	});
 </script>
 
 <div class="layout">

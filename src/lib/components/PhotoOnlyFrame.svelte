@@ -1,154 +1,131 @@
 <script lang="ts">
-	import ndk from '$lib/stores/ndk';
+	import type { FilteredPost } from '$lib/filters';
+	import { display } from '$lib/config';
 	import { truncatedBech } from '$lib/utils';
-	import type { NDKEvent, NDKUser } from '@nostr-dev-kit/ndk';
 	import dayjs from 'dayjs';
 
-	export let post: NDKEvent;
-	//console.log("photo only post: ", post);
+	export let post: FilteredPost;
 
-	let content: string = post.content;
-	//console.log("content: ", post.content);
+	// Images are pre-extracted by the filter
+	$: images = post.images;
 
-	//let guest: NDKUser = post.pubkey;
-
-	let source: string = '';
-
-	let photos: string[] = [];
-	//console.log('photos: ', photos);
-
-	// grabbing images that are in tags (type r)
-	function isImageLink(text: string) {
-		var imageSuffixPatternRegex = /\.(png|gif|webp|jpeg|jpg)$/g;
-		return text.match(imageSuffixPatternRegex);
-	}
-
-	// parsing images that are embedded in the post's content
-	function grabImagesFromPost(text: string) {
-		var urlPattern = /\b(?:https?):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
-		//var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-		var matchedUrls = text.match(urlPattern);
-		if (matchedUrls) {
-			//console.log('matchedUrls: ', matchedUrls);
-			return matchedUrls;
-		} else {
-			//console.log('no matched Urls');
-			return false;
-		}
-	}
-
-	async function checkForPhotos() {
-		if (post.tags.length > 0) {
-			for (let tag of post.tags) {
-				if (tag[0] == 'r' && isImageLink(tag[1]) && !photos.includes(tag[1])) {
-					photos.push(tag[1]);
-					source = 'tag';
-				}
-			}
-		} else if (grabImagesFromPost(content)) {
-			for (let imageUrl of grabImagesFromPost(content)) {
-				if (photos.includes(imageUrl)) {
-    				continue;
-				}
-				photos.push(imageUrl);
-				source = 'embed';
-			}
-		} else {
-			console.log('no photos');
-		}
-	}
-
-	function fetchUsername(ndkUser: NDKUser): Promise<string> {
-		let name: string;
-		return new Promise((resolve, reject) => {
-			ndkUser.fetchProfile().then(() => {
-				name =
-					ndkUser.profile?.displayName ||
-					ndkUser.profile?.name ||
-					truncatedBech(ndkUser.npub);
-				resolve(name);
-			});
-		});
-	}
+	// Author info with fallbacks
+	$: authorName = post.author.displayName || post.author.name || truncatedBech(post.author.npub || post.author.pubkey);
+	$: authorPicture = post.author.picture;
+	$: formattedDate = dayjs.unix(post.createdAt).format(display.dateFormat);
 </script>
 
-{#await checkForPhotos()}
-	<p>loading...</p>
-{:then}
-	{#if photos.length > 0}
-		<div class="photoOnlyBlock">
-			<div class="image-container">
-				{#each photos as photo}
-					<a href={photo} target="_blank"
-						><img
-							style="margin:9px;"
-							src={photo}
-							alt="{source} from user: {post.pubkey.substring(0, 9)}"
-						/></a
-					>
-				{/each}
-			</div>
-			<p>
-				guest posted by:
-				<a href="https://primal.net/profile/{post.pubkey}" target="_blank">
-					{#await fetchUsername($ndk.getUser({ hexpubkey: post.pubkey })) then name}
-						@{name}
-					{/await}
+{#if images.length > 0}
+	<article class="photo-frame">
+		<div class="images" class:single={images.length === 1} class:multiple={images.length > 1}>
+			{#each images as src, i}
+				<a href={src} target="_blank" rel="noopener" class="image-link">
+					<img {src} alt="Guest photo {i + 1}" loading="lazy" />
 				</a>
-			</p>
-			<h6>
-				{dayjs.unix(post.created_at ?? 0).format('MMM D, YYYY h:mm a')}<br />&nbsp;
-			</h6>
+			{/each}
 		</div>
-	{/if}
-{:catch error}
-	<p>error: {error.message}</p>
-{/await}
+
+		<footer>
+			<div class="author-info">
+				{#if authorPicture}
+					<img src={authorPicture} alt="" class="avatar" />
+				{/if}
+				<a
+					href="https://primal.net/profile/{post.author.pubkey}"
+					target="_blank"
+					rel="noopener"
+					class="author-link"
+				>
+					@{authorName}
+				</a>
+			</div>
+			<time datetime={new Date(post.createdAt * 1000).toISOString()}>
+				{formattedDate}
+			</time>
+		</footer>
+	</article>
+{/if}
 
 <style>
-	p {
-		font-size: var(--font-size-3);
-		font-weight: var(--font-weight-2);
-		line-height: var(--line-height-3);
-		margin-block: var(--size-1);
-		text-align: left;
-		color: var(--text-1);
-	}
-	h5 {
-		color: var(--text-2);
-	}
-	h6 {
-		color: var(--text-3);
-	}
-	a {
-		color: var(--text-a);
-	}
-	.photoOnlyBlock {
+	.photo-frame {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
-		justify-content: center;
-		width: max-content;
-		margin-top: var(--size-4);
-		padding-top: var(--size-4);
-		padding-inline: var(--size-4);
-		padding-bottom: var(--size-3);
-		margin-bottom: var(--size-2);
+		width: 100%;
+		max-width: 700px;
+		padding: var(--size-4);
 		background-color: var(--surface-4);
 		border: 4px solid var(--surface-5);
-		border-radius: var(--size-3);
-		box-shadow: 0 0 0.5rem var(--color-shadow);
+		border-radius: var(--radius-3);
+		box-shadow: 0 0 0.5rem var(--surface-1);
 	}
-	.image-container {
+
+	.images {
 		display: flex;
-		flex-direction: row;
-		align-items: center;
+		flex-wrap: wrap;
+		gap: var(--size-2);
 		justify-content: center;
 	}
-	img {
-		border: 10px double rgb(95, 195, 154);
-		display: inline-block;
-		width: 350px;
-		margin-right: 10px;
+
+	.images.single .image-link {
+		width: 100%;
+	}
+
+	.images.multiple .image-link {
+		flex: 1 1 300px;
+		max-width: 350px;
+	}
+
+	.image-link {
+		display: block;
+	}
+
+	.images img {
+		width: 100%;
+		height: auto;
+		border: 8px double rgb(95, 195, 154);
+		border-radius: var(--radius-2);
+		transition: border 0.2s ease;
+	}
+
+	.images img:hover {
+		border: 4px solid white;
+		box-shadow: rgb(95, 195, 154) 0px 0px 10px;
+	}
+
+	footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: var(--size-3);
+		padding-top: var(--size-2);
+		border-top: 1px solid var(--surface-5);
+	}
+
+	.author-info {
+		display: flex;
+		align-items: center;
+		gap: var(--size-2);
+	}
+
+	.avatar {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.author-link {
+		color: var(--text-1);
+		text-decoration: none;
+		font-size: var(--font-size-1);
+	}
+
+	.author-link:hover {
+		color: var(--text-ahover);
+	}
+
+	time {
+		color: var(--text-3);
+		font-size: var(--font-size-0);
 	}
 </style>

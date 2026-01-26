@@ -1,10 +1,10 @@
 <script lang="ts">
-	import * as config from '$lib/config';
+	import { site } from '$lib/config';
 </script>
 
 <footer>
 	<center>
-		<p>developed at <b>{config.title}</b> &copy {new Date().getFullYear()}</p>
+		<p>developed at <b>{site.title}</b> &copy; {new Date().getFullYear()}</p>
 	</center>
 </footer>
 
