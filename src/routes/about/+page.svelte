@@ -98,16 +98,6 @@
 	This site reads posts from a specific nostr relay and displays images from selected kind 1
 	events...
 </p>
-<hr />
-
-<h3>Lyrics in ma head</h3>
-<blockquote>
-	Lovin' the free and feelin' spirit<br />
-	Of huggin' a tree when you get near it<br />
-	Diggin' the snow and the rain<br />
-	&nbsp; &nbsp; and the bright sunshine<br />
-	Draggin' the line
-</blockquote>
 
 <style>
 	.page-header {

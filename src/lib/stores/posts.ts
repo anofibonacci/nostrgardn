@@ -104,14 +104,19 @@ async function _fetchPosts(): Promise<void> {
 	postsStore.update(s => ({ ...s, loading: true, error: null }));
 
 	try {
-		// Ensure NDK is connected (with retry)
+		// Ensure NDK is connected (with retry, but don't fail completely)
 		try {
 			await connect();
 		} catch (connErr) {
 			console.warn('[nostrgardn] Initial connection failed, retrying...', connErr);
 			// Wait a moment and try again
 			await new Promise(r => setTimeout(r, 2000));
-			await connect();
+			try {
+				await connect();
+			} catch (retryErr) {
+				console.error('[nostrgardn] Retry also failed, continuing anyway...', retryErr);
+				// Don't throw - let it try to fetch anyway
+			}
 		}
 
 		// Fetch kind 1 events from relays

@@ -20,7 +20,8 @@ export const relays = {
 	explicit: [
 		'wss://relay.damus.io',
 		'wss://nos.lol',
-		'wss://relay.nostr.band' // good for hashtag searches
+		'wss://relay.primal.net'
+		// 'wss://relay.nostr.band'  // disabled: connection issues
 		// 'wss://gardn.nostr1.com'  // future: private relay
 	],
 

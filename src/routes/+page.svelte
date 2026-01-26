@@ -162,6 +162,7 @@
 		color: var(--text-2);
 		font-size: var(--font-size-0);
 		margin-top: var(--size-3);
+		text-align: center;
 	}
 
 	.mission a {
