@@ -149,6 +149,7 @@
 	.mission {
 		max-width: 500px;
 		margin-bottom: var(--size-7);
+		text-align: center;
 	}
 
 	.mission p {
