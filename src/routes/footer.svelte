@@ -15,5 +15,8 @@
 
 	p {
 		color: var(--text-2);
+		color: var(--text-2);
+		font-size: var(--font-size-1);
+		opacity: 0.6;
 	}
 </style>

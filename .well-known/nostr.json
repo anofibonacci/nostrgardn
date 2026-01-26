@@ -1,0 +1,17 @@
+{
+  "names": {
+    "_": "e2b1b6abab496158f64947c4dc63ad5cbdf2ae7a96a81e23b50c42f3a54f372f"
+  },
+  "relays": {
+    "e2b1b6abab496158f64947c4dc63ad5cbdf2ae7a96a81e23b50c42f3a54f372f": [ 
+     "wss://nos.lol", 
+     "wss://nostr.land", 
+     "wss://purplerelay.com", 
+     "wss://relay.damus.io", 
+     "wss://relay.snort.social", 
+     "wss://relay.primal.net", 
+     "wss://gardn.nostr1.com", 
+     "ws://ssyf3dvngi4vr74gdcsyuvubv4qoyxhkymbslxiuk67rruyk6i3taoyd.onion/" 
+    ]
+  }
+}

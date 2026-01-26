@@ -62,9 +62,11 @@
 	</div>
 
 	<!-- Subtle footer note -->
+	<!--
 	<p class="footer-note">
 		California, USA
 	</p>
+	-->
 </section>
 
 <style>
@@ -156,14 +158,13 @@
 		color: var(--text-1);
 		font-size: var(--font-size-fluid-0);
 		line-height: 1.6;
-		margin: 0;
+		--margin: 0;
 	}
 
 	.mission .small {
 		color: var(--text-2);
 		font-size: var(--font-size-0);
 		margin-top: var(--size-3);
-		text-align: center;
 	}
 
 	.mission a {
