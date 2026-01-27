@@ -1,5 +1,5 @@
 import type { NDKEvent, NDKUserProfile } from '@nostr-dev-kit/ndk';
-import { whitelist, blocklist, requiredTags, imagePatterns, display } from './config';
+import { gardeners, blocklist, requiredTags, gardenerRequiredTags, imagePatterns, display, masterGardener } from './config';
 
 // ============================================================================
 // TYPES
@@ -39,10 +39,14 @@ export interface FilteredPost {
 export interface FilterStats {
 	total: number;
 	blocked: number;
-	whitelisted: number;
-	taggedWithImages: number;
-	rejectedNoTag: number;
-	rejectedNoImages: number;
+	masterGardener: number;        // MG posts (all allowed)
+	gardenerWithTag: number;       // Gardener posts with #gardn
+	gardenerNoTag: number;         // Gardener posts missing #gardn (rejected)
+	taggedWithImages: number;      // Pleb posts with #nostrgardnpost + images
+	rejectedNoTag: number;         // Pleb posts missing required tag
+	rejectedNoImages: number;      // Pleb posts with tag but no images
+	// Legacy alias for backwards compatibility
+	whitelisted: number;           // = masterGardener + gardenerWithTag
 }
 
 // ============================================================================
@@ -58,16 +62,31 @@ export function isBlocked(pubkey: string): boolean {
 }
 
 /**
- * Check if a pubkey is in the whitelist (gardeners)
+ * Check if a pubkey is THE Master Gardener (all posts allowed)
+ * There can be only one. 🌳👑
  */
-export function isWhitelisted(pubkey: string): boolean {
-	// Normalize to lowercase hex for comparison
-	const normalizedPubkey = pubkey.toLowerCase();
-	return whitelist.some((wp) => wp.toLowerCase() === normalizedPubkey);
+export function isMasterGardener(pubkey: string): boolean {
+	return pubkey.toLowerCase() === masterGardener.toLowerCase();
 }
 
 /**
- * Check if an event has at least one of the required tags
+ * Check if a pubkey is a Gardener (must use #gardn tag)
+ */
+export function isGardener(pubkey: string): boolean {
+	const normalizedPubkey = pubkey.toLowerCase();
+	return gardeners.some((g) => g.toLowerCase() === normalizedPubkey);
+}
+
+/**
+ * Check if a pubkey is whitelisted (Master Gardener OR Gardener)
+ * Used for relay queries to fetch posts from trusted accounts
+ */
+export function isWhitelisted(pubkey: string): boolean {
+	return isMasterGardener(pubkey) || isGardener(pubkey);
+}
+
+/**
+ * Check if an event has at least one of the required tags (for plebs)
  * Tags in Nostr are stored as ["t", "tagvalue"] arrays
  */
 export function hasRequiredTag(event: NDKEvent): boolean {
@@ -77,6 +96,24 @@ export function hasRequiredTag(event: NDKEvent): boolean {
 		if (tagValue) {
 			const normalizedTag = tagValue.toLowerCase();
 			if (requiredTags.some((rt) => rt.toLowerCase() === normalizedTag)) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Check if an event has at least one of the gardener-required tags (#gardn)
+ */
+export function hasGardenerTag(event: NDKEvent): boolean {
+	const eventTags = event.getMatchingTags('t');
+
+	for (const [, tagValue] of eventTags) {
+		if (tagValue) {
+			const normalizedTag = tagValue.toLowerCase();
+			if (gardenerRequiredTags.some((gt) => gt.toLowerCase() === normalizedTag)) {
 				return true;
 			}
 		}
@@ -144,9 +181,14 @@ export function extractImages(content: string): string[] {
  *
  * Decision tree:
  * 0. Is pubkey blocked? → REJECT immediately
- * 1. Is pubkey whitelisted? → FULL display (text + images)
- * 2. Does it have required tag? → Continue, else REJECT
- * 3. Does it have images? → IMAGE-ONLY display, else REJECT
+ * 1. Is pubkey Master Gardener? → FULL display (no restrictions)
+ * 2. Is pubkey a Gardener? → Check for #gardn tag
+ *    - Has #gardn → FULL display
+ *    - No #gardn → REJECT (future: different treatment)
+ * 3. Is pleb with required tag (#nostrgardnpost)? → Continue, else REJECT
+ * 4. Does pleb post have images? → IMAGE-ONLY display, else REJECT
+ *
+ * Future: rejected plebs → Compost Heap for community moderation
  */
 export function filterEvent(event: NDKEvent): FilteredPost | null {
 	const pubkey = event.pubkey;
@@ -159,9 +201,9 @@ export function filterEvent(event: NDKEvent): FilteredPost | null {
 	}
 
 	// -------------------------------------------------------------------------
-	// Branch 1: Whitelist check (gardeners get full access)
+	// Branch 1: Master Gardener (all posts allowed, no restrictions)
 	// -------------------------------------------------------------------------
-	if (isWhitelisted(pubkey)) {
+	if (isMasterGardener(pubkey)) {
 		return {
 			event,
 			displayType: 'full',
@@ -173,15 +215,33 @@ export function filterEvent(event: NDKEvent): FilteredPost | null {
 	}
 
 	// -------------------------------------------------------------------------
-	// Branch 2: Required tag check (plebs must use the right hashtag)
+	// Branch 2: Gardener check (must use #gardn for priority inclusion)
 	// -------------------------------------------------------------------------
-	if (!hasRequiredTag(event)) {
-		// Rejected: no required tag
+	if (isGardener(pubkey)) {
+		if (hasGardenerTag(event)) {
+			return {
+				event,
+				displayType: 'full',
+				images: extractImages(event.content),
+				author: { pubkey },
+				reason: 'whitelist',
+				createdAt: event.created_at ?? 0
+			};
+		}
+		// Gardener without #gardn tag - rejected (their other posts don't appear)
 		return null;
 	}
 
 	// -------------------------------------------------------------------------
-	// Branch 3: Image check (plebs must include images)
+	// Branch 3: Pleb required tag check (must use #nostrgardnpost)
+	// -------------------------------------------------------------------------
+	if (!hasRequiredTag(event)) {
+		// Rejected: no required tag (future: route to Compost Heap)
+		return null;
+	}
+
+	// -------------------------------------------------------------------------
+	// Branch 4: Pleb image check (must include images)
 	// -------------------------------------------------------------------------
 	const images = extractImages(event.content);
 
@@ -191,7 +251,7 @@ export function filterEvent(event: NDKEvent): FilteredPost | null {
 	}
 
 	// -------------------------------------------------------------------------
-	// Success: Tagged post with images → image-only display
+	// Success: Tagged pleb post with images → image-only display
 	// -------------------------------------------------------------------------
 	return {
 		event,
@@ -232,10 +292,13 @@ export function filterEventsWithStats(
 	const stats: FilterStats = {
 		total: 0,
 		blocked: 0,
-		whitelisted: 0,
+		masterGardener: 0,
+		gardenerWithTag: 0,
+		gardenerNoTag: 0,
 		taggedWithImages: 0,
 		rejectedNoTag: 0,
-		rejectedNoImages: 0
+		rejectedNoImages: 0,
+		whitelisted: 0
 	};
 
 	for (const event of events) {
@@ -248,13 +311,32 @@ export function filterEventsWithStats(
 			continue;
 		}
 
-		if (isWhitelisted(pubkey)) {
+		// Master Gardener: all posts allowed
+		if (isMasterGardener(pubkey)) {
 			const filtered = filterEvent(event);
 			if (filtered) {
 				posts.push(filtered);
-				stats.whitelisted++;
+				stats.masterGardener++;
 			}
-		} else if (!hasRequiredTag(event)) {
+			continue;
+		}
+
+		// Gardener: must use #gardn tag
+		if (isGardener(pubkey)) {
+			if (hasGardenerTag(event)) {
+				const filtered = filterEvent(event);
+				if (filtered) {
+					posts.push(filtered);
+					stats.gardenerWithTag++;
+				}
+			} else {
+				stats.gardenerNoTag++;
+			}
+			continue;
+		}
+
+		// Pleb: must use #nostrgardnpost + have images
+		if (!hasRequiredTag(event)) {
 			stats.rejectedNoTag++;
 		} else {
 			const images = extractImages(event.content);
@@ -269,6 +351,9 @@ export function filterEventsWithStats(
 			}
 		}
 	}
+
+	// Compute legacy whitelisted count
+	stats.whitelisted = stats.masterGardener + stats.gardenerWithTag;
 
 	// Sort by created_at descending
 	posts.sort((a, b) => b.createdAt - a.createdAt);
