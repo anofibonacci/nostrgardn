@@ -26,6 +26,71 @@ This document contains feature ideas — seeds waiting to be planted, nurtured, 
 
 ---
 
+### 0. Proof of Work (PoW) - Visual History Heatmap
+**Status:** 🌿 Growing
+**Complexity:** Medium
+**Cypherpunk Factor:** ⚡⚡⚡⚡
+
+**The Vision:**
+A GitHub-style contributions graph showing the visual history of NostrGardn — a heatmap of daily photo activity over time. Each square represents a day; color intensity shows how many photos were taken. Visitors can browse different years, hover for counts, and click to see all photos from that specific day. It's proof-of-work made visible: the sweat equity in growing the garden, quantified and celebrated.
+
+**How It Works:**
+1. **Main Page (`/pow`)** — GitHub-style heatmap
+   - Year selector dropdown (2018–2026)
+   - 52-week × 7-day grid (rows = weekdays, columns = weeks)
+   - Color intensity buckets: 0 (transparent), 1–2, 3–5, 6–8, 9+ photos
+   - Hover tooltip shows photo count for that day
+   - Click to navigate to day view
+
+2. **Day View (`/pow/[year]/[month]/[day]`)** — Photo archive
+   - Card grid showing all photos from that day (600px)
+   - Lightbox for viewing full gallery images (1200px)
+   - Space for optional diary entry (text-based reflection on the day)
+   - Technical metadata: camera, ISO, aperture, shutter speed (if available)
+
+**Garden-Themed Color Palette:**
+- 0 photos: Transparent (unclickable)
+- 1–2: #D4E8D4 Light sage (seedling stage)
+- 3–5: #7DB77D Medium forest green (growing)
+- 6–8: #2D5F2D Deep garden green (established)
+- 9+: #E89B9B Blooming pink/mauve (celebrated!)
+
+**Technical Implementation:**
+- **Frontend:** SvelteKit routes + interactive heatmap component
+- **Data:** Pre-generated `pow-metadata.json` (dates, EXIF specs, photo counts)
+- **Diary Storage:** JSON file `pow-diaries.json` (for manual diary entries)
+- **Privacy:** GPS location data stripped from all served images
+- **Date Source:** Extracted from filenames (IMG_YYYYMMDD_####.jpeg), validated against EXIF DateTimeOriginal
+- **Performance:** Single year's data loaded at a time (lazy-load other years)
+
+**Current Status (Jan 31, 2026):**
+- ✅ Metadata generation script complete (`generate_pow_metadata.py`)
+- ✅ GPS stripping implemented (3,066 files processed)
+- ✅ Metadata JSON files generated (pow-metadata.json, pow-diaries.json)
+- ✅ Production GPS stripping plan documented (exiftool deployment approach)
+- ⏳ SvelteKit routes (`/pow`, `/pow/[year]/[month]/[day]`)
+- ⏳ Heatmap visualization component
+- ⏳ Lightbox gallery integration
+- ⏳ Mobile responsiveness
+
+**Files Created:**
+- `/scripts/generate_pow_metadata.py` — Metadata generator + GPS stripper
+- `/docs/POW_GPS_STRIPPING_DEPLOYMENT_PLAN.md` — Production privacy protocol
+- `/build/public/data/pow-metadata.json` — Indexed image metadata
+- `/build/public/data/pow-diaries.json` — Diary entry template
+
+**Why It's Great:**
+This is the **visual proof of labor** — a celebration of consistency and care. The heatmap shows the invisible work of gardening: days of many photos represent prolific planting/harvesting; gaps show seasons of rest. It's documentation without surveillance, a calendar of seasons without centralized control. Every gardener can fork this concept for their own projects.
+
+**Future Extensions:**
+- Lighting conditions heatmap (ISO/exposure analysis)
+- Equipment evolution timeline (iPhone model distribution)
+- Seasonal patterns visualization
+- Export functionality (download heatmap data, archive photos)
+- Integration with diary entries for AI-powered photo summaries
+
+---
+
 ### 1. Proof of Photosynthesis Verification Badge
 **Status:** 🌰 Seed
 **Complexity:** Medium
