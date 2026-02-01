@@ -10,6 +10,7 @@
 	<div class="nav-links">
 		<a href="/" class:active={currentPath === '/'}>Home</a>
 		<a href="/feed" class:active={currentPath === '/feed'}>Feed</a>
+		<a href="/pow" class:active={currentPath.startsWith('/pow')}>PoW</a>
 		<a href="/about" class:active={currentPath === '/about'}>About</a>
 	</div>
 	<div class="nav-toggle">
