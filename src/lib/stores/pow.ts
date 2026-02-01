@@ -101,10 +101,11 @@ export function getWeeksForYear(year: number): DayStats[][] {
 
 	// Create Jan 1 of that year
 	const jan1 = new Date(year, 0, 1);
-	const dayOfWeek = jan1.getDay(); // 0 = Sunday, 1 = Monday, etc.
+	const jsDay = jan1.getDay(); // 0 = Sunday, 1 = Monday, etc.
+	// Convert from JavaScript's Sunday=0 to our Monday=0 grid layout
+	const dayOfWeek = (jsDay + 6) % 7; // Sunday (0) → 6, Monday (1) → 0, etc.
 
-	// Add empty slots before Jan 1 if needed (Sunday = 0, so we want Mon-Sun)
-	// Actually, let's start weeks on Monday (ISO week)
+	// Add empty slots before Jan 1 if needed
 	for (let i = 0; i < dayOfWeek; i++) {
 		currentWeek.push({
 			date: '',
