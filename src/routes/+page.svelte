@@ -11,7 +11,7 @@
 		'/pix/IMG_20230809_7270.jpeg',
 		'/pix/IMG_20230809_7278.jpeg',
 		'/pix/IMG_20230809_7292.jpeg',
-		'/pix/IMG_8531.jpeg'
+		'/pix/IMG_20230807_8531.jpeg'
 	];
 </script>
 
@@ -24,7 +24,7 @@
 	<!-- Hero Section -->
 	<header class="hero">
 		<h1 class="title">nostrgardn</h1>
-		<p class="tagline">A curated garden on the Nostr network</p>
+		<p class="tagline">An evolving garden befitting ofNostr</p>
 	</header>
 
 	<!-- Visual Showcase -->
