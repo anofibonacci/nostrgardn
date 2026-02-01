@@ -8,9 +8,9 @@
 
 	// Showcase images from static/pix
 	const showcaseImages = [
-		'/pix/IMG_7270.jpeg',
-		'/pix/IMG_7278.jpeg',
-		'/pix/IMG_7292.jpeg',
+		'/pix/IMG_20230809_7270.jpeg',
+		'/pix/IMG_20230809_7278.jpeg',
+		'/pix/IMG_20230809_7292.jpeg',
 		'/pix/IMG_8531.jpeg'
 	];
 </script>
