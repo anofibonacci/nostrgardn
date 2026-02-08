@@ -142,9 +142,9 @@ export function getMatchingTags(event: NDKEvent): string[] {
 }
 
 /**
- * Extract image URLs from post content using configured patterns
+ * Extract image URLs from post content text using configured regex patterns
  */
-export function extractImages(content: string): string[] {
+export function extractImagesFromContent(content: string): string[] {
 	const images: string[] = [];
 
 	for (const pattern of imagePatterns) {
@@ -156,6 +156,73 @@ export function extractImages(content: string): string[] {
 			images.push(...matches);
 		}
 	}
+
+	return images;
+}
+
+/**
+ * Extract image URLs from NIP-92 imeta tags (modern standard)
+ * Tags are structured as: ["imeta", "url <url>", "m <mime>", "dim <WxH>", ...]
+ */
+export function extractImagesFromImeta(event: NDKEvent): string[] {
+	const images: string[] = [];
+
+	const imetaTags = event.getMatchingTags('imeta');
+	for (const tag of imetaTags) {
+		// Each imeta tag entry after the first element is a key-value pair
+		for (const entry of tag.slice(1)) {
+			// Type guard: relay data can be malformed
+			if (typeof entry === 'string' && entry.startsWith('url ')) {
+				const url = entry.slice(4).trim();
+				if (url && url.length > 0) {
+					images.push(url);
+				}
+			}
+		}
+	}
+
+	return images;
+}
+
+/**
+ * Extract image URLs from standard "image" or "thumb" tags
+ * Some clients use ["image", "<url>"] or ["thumb", "<url>"] tags
+ */
+export function extractImagesFromEventTags(event: NDKEvent): string[] {
+	const images: string[] = [];
+
+	for (const tag of event.tags) {
+		if ((tag[0] === 'image' || tag[0] === 'thumb') && tag[1]) {
+			images.push(tag[1]);
+		}
+	}
+
+	return images;
+}
+
+/**
+ * Extract all image URLs from an event using multiple strategies:
+ * 1. NIP-92 imeta tags (highest fidelity)
+ * 2. Event-level image/thumb tags
+ * 3. Regex extraction from content text (fallback)
+ *
+ * Results are deduplicated while preserving order (tags first, then content).
+ */
+export function extractImages(content: string, event?: NDKEvent): string[] {
+	const images: string[] = [];
+
+	// Strategy 1: NIP-92 imeta tags (preferred, contains metadata)
+	if (event) {
+		images.push(...extractImagesFromImeta(event));
+	}
+
+	// Strategy 2: image/thumb tags
+	if (event) {
+		images.push(...extractImagesFromEventTags(event));
+	}
+
+	// Strategy 3: Regex from content text (catches inline URLs)
+	images.push(...extractImagesFromContent(content));
 
 	// Deduplicate while preserving order
 	const seen = new Set<string>();
@@ -207,7 +274,7 @@ export function filterEvent(event: NDKEvent): FilteredPost | null {
 		return {
 			event,
 			displayType: 'full',
-			images: extractImages(event.content),
+			images: extractImages(event.content, event),
 			author: { pubkey },
 			reason: 'whitelist',
 			createdAt: event.created_at ?? 0
@@ -222,7 +289,7 @@ export function filterEvent(event: NDKEvent): FilteredPost | null {
 			return {
 				event,
 				displayType: 'full',
-				images: extractImages(event.content),
+				images: extractImages(event.content, event),
 				author: { pubkey },
 				reason: 'whitelist',
 				createdAt: event.created_at ?? 0
@@ -243,7 +310,7 @@ export function filterEvent(event: NDKEvent): FilteredPost | null {
 	// -------------------------------------------------------------------------
 	// Branch 4: Pleb image check (must include images)
 	// -------------------------------------------------------------------------
-	const images = extractImages(event.content);
+	const images = extractImages(event.content, event);
 
 	if (images.length === 0) {
 		// Rejected: has tag but no images
@@ -339,7 +406,7 @@ export function filterEventsWithStats(
 		if (!hasRequiredTag(event)) {
 			stats.rejectedNoTag++;
 		} else {
-			const images = extractImages(event.content);
+			const images = extractImages(event.content, event);
 			if (images.length === 0) {
 				stats.rejectedNoImages++;
 			} else {

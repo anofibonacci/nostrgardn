@@ -24,7 +24,7 @@
 	<!-- Hero Section -->
 	<header class="hero">
 		<h1 class="title">nostrgardn</h1>
-		<p class="tagline">An evolving garden befitting ofNostr</p>
+		<p class="tagline">An evolving garden befitting of Nostr</p>
 	</header>
 
 	<!-- Visual Showcase -->

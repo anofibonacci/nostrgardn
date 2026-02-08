@@ -2,8 +2,8 @@ import { browser } from '$app/environment';
 import { writable, get } from 'svelte/store';
 import { ndkInstance, connect } from './ndk';
 import { filterEventsWithStats, populateAuthorInfo, type FilteredPost, type FilterStats } from '../filters';
-import { display, whitelist } from '../config';
-import type { NDKFilter } from '@nostr-dev-kit/ndk';
+import { display, whitelist, requiredTags } from '../config';
+import type { NDKFilter, NDKEvent } from '@nostr-dev-kit/ndk';
 
 // ============================================================================
 // TYPES
@@ -20,10 +20,13 @@ export interface PostsState {
 const initialStats: FilterStats = {
 	total: 0,
 	blocked: 0,
-	whitelisted: 0,
+	masterGardener: 0,
+	gardenerWithTag: 0,
+	gardenerNoTag: 0,
 	taggedWithImages: 0,
 	rejectedNoTag: 0,
-	rejectedNoImages: 0
+	rejectedNoImages: 0,
+	whitelisted: 0
 };
 
 const initialState: PostsState = {
@@ -119,16 +122,47 @@ async function _fetchPosts(): Promise<void> {
 			}
 		}
 
-		// Fetch kind 1 events from relays
-		const filter: NDKFilter = {
-			kinds: [1],
+		// Dual query strategy:
+		// 1. Gardener posts (whitelisted pubkeys, Kind 1 + Kind 20)
+		// 2. Pleb posts (anyone using #nostrgardnpost tag, Kind 1 + Kind 20)
+		// Note: Kind 20 (NIP-68 picture-first) is cast because NDK 0.8.x types
+		// don't include it yet. This is safe — relays accept any integer kind.
+		const gardenerFilter: NDKFilter = {
+			kinds: [1, 20 as number],
 			authors: whitelist,
 			limit: display.initialFetchLimit
 		};
 
-		console.log('[nostrgardn] Prefetching events from relays...');
-		const events = await ndkInstance.fetchEvents(filter, { closeOnEose: true });
-		console.log(`[nostrgardn] Received ${events.size} events from relays`);
+		const plebFilter: NDKFilter = {
+			kinds: [1, 20 as number],
+			'#t': requiredTags,
+			limit: 30
+		};
+
+		console.log('[nostrgardn] Prefetching events from relays (gardener + pleb queries)...');
+		const [gardenerEvents, plebEvents] = await Promise.all([
+			ndkInstance.fetchEvents(gardenerFilter, { closeOnEose: true }),
+			ndkInstance.fetchEvents(plebFilter, { closeOnEose: true })
+		]);
+
+		// Merge and deduplicate by event ID
+		const events = new Set<NDKEvent>();
+		const seenIds = new Set<string>();
+
+		for (const event of gardenerEvents) {
+			if (!seenIds.has(event.id)) {
+				seenIds.add(event.id);
+				events.add(event);
+			}
+		}
+		for (const event of plebEvents) {
+			if (!seenIds.has(event.id)) {
+				seenIds.add(event.id);
+				events.add(event);
+			}
+		}
+
+		console.log(`[nostrgardn] Received ${gardenerEvents.size} gardener + ${plebEvents.size} pleb = ${events.size} unique events`);
 
 		// Apply filter decision tree
 		const { posts, stats } = filterEventsWithStats(events);

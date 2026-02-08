@@ -2,6 +2,7 @@
 	import type { FilteredPost } from '$lib/filters';
 	import { whitelist, display } from '$lib/config';
 	import { truncatedBech } from '$lib/utils';
+	import DOMPurify from 'dompurify';
 	import dayjs from 'dayjs';
 
 	export let post: FilteredPost;
@@ -46,9 +47,14 @@
 
 	/**
 	 * Process content for display
+	 * Sanitizes HTML to prevent XSS from malicious Nostr event content
 	 */
 	function processContent(text: string): string {
-		return convertLinkToImage(addLineBreaks(linkify(text)));
+		const processed = convertLinkToImage(addLineBreaks(linkify(text)));
+		return DOMPurify.sanitize(processed, {
+			ALLOWED_TAGS: ['a', 'img', 'br', 'p', 'span', 'strong', 'em'],
+			ALLOWED_ATTR: ['href', 'src', 'alt', 'target', 'rel', 'loading', 'class']
+		});
 	}
 </script>
 
