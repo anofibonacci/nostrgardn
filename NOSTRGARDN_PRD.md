@@ -260,12 +260,16 @@ In a world of doomscrolling and digital anxiety, NostrGardn offers a counterweig
 - Whimsical but grounded
 - Cypherpunk with dad-joke energy
 
+**Design Direction (Approved Feb 8, 2026):**
+*"The Handbuilt Greenhouse"* — A hybrid visual identity that combines cypherpunk tech aesthetics (terminal UI, code rain, glitch effects) with wabi-sabi philosophy (visible seams, handmade quality, intentional imperfection). The design celebrates the "build it yourself" ethos, showing both the finished garden (meditative photos) and the workshop that built it (technical infrastructure). See `DESIGN_VISION.md` for full specification.
+
 **Tagline Options:**
 - *"Where notes and other stuff grow"* (Current)
 - *"A curated garden on Nostr"*
 - *"Decentralized beauty, naturally"*
 - *"The protocol for photosynthesis"*
 - *"Touch grass, on-chain"*
+- *"Built with duct tape and cryptography"* (New - design tagline)
 
 **Key Vocabulary:**
 - Tend the garden
@@ -274,6 +278,8 @@ In a world of doomscrolling and digital anxiety, NostrGardn offers a counterweig
 - Compost the spam
 - Fork the garden
 - Touch grass
+- Terminal prompts (`~/garden$ ls -la`)
+- Git commit messages (`feat: added tomato 🍅`)
 
 ### 2.4 What NostrGardn Is NOT
 
@@ -1616,6 +1622,7 @@ This measures community health, quality content flow, and platform stickiness. I
 |---------|------|--------|---------|
 | 1.0 Draft | Feb 7, 2026 | Claude (Sonnet 4.5) | Initial PRD creation, research synthesized |
 | 1.1 Revised | Feb 8, 2026 | Claude (Opus 4.6) | Corrected relay URL (wss://relay.1in7.com), removed Bonaccike/duobudo references, added single-user→multi-user evolution context, Phase 1→2 transition note, per-Gardener photo rolls in Phase 3, Gardener Profile Pages (4.2.7), Featured Gardeners Carousel (4.2.8) |
+| 1.2 Design | Feb 8, 2026 | Claude (Sonnet 4.5) | Added approved design direction "The Handbuilt Greenhouse" to Brand Essence section, updated key vocabulary with terminal/git terminology |
 
 ---
 

@@ -9,14 +9,15 @@
 
 ## Current Stack Summary
 
-| Layer | Current | Latest |
-|-------|---------|--------|
-| Framework | SvelteKit **1.20** | SvelteKit **2.x** (Svelte 5) |
-| UI | Svelte **4.0** | Svelte **5.x** (runes) |
-| Bundler | Vite **4.3** | Vite **6.x** |
-| Nostr | NDK **2.15.2** | NDK **2.x** |
-| Linting | ESLint 8 + TS-ESLint 5 | ESLint 9 flat config |
-| Syntax Highlight | Shiki **0.14** | Shiki **1.x** |
+| Layer | Current | Notes |
+|-------|---------|-------|
+| Framework | SvelteKit **2.50.2** ✅ | Upgraded Feb 8, 2026 |
+| UI | Svelte **5.50.0** ✅ | Upgraded Feb 8, 2026 (runes available) |
+| Bundler | Vite **5.0** ✅ | Upgraded Feb 8, 2026 (Vite 6 available) |
+| Nostr | NDK **2.15.2** ✅ | Upgraded Feb 8, 2026 |
+| Linting | ESLint **9.0** ✅ | Upgraded Feb 8, 2026 |
+| Adapter | adapter-static **3.0** ✅ | Upgraded Feb 8, 2026 |
+| Syntax Highlight | Shiki **0.14** | Upgrade to 1.x planned |
 | Hosting | GoDaddy static | (see recommendations) |
 
 ---
@@ -90,11 +91,20 @@ Upgraded from NDK 0.8.19 to 2.15.2 with Dexie cache adapter:
 
 ### 6. SvelteKit 1.x -> 2.x + Svelte 5
 
-SvelteKit 1.x is end-of-life. SvelteKit 2.x brings Svelte 5 runes (`$state`, `$derived`, `$effect`), smaller bundle sizes, and better SSR/streaming. The codebase is small (~35 source files) so migration is very tractable. The SvelteKit team provides an automated migration tool (`npx sv migrate`).
+SvelteKit 1.x is end-of-life. SvelteKit 2.x brings Svelte 5 runes (`$state`, `$derived`, `$effect`), smaller bundle sizes, and better SSR/streaming. The codebase is small (~35 source files) so migration is very tractable.
 
-**Recommendation:** Upgrade after NDK migration.
+**Migration completed Feb 8, 2026:**
+- SvelteKit 1.20.4 → 2.50.2 ✓
+- Svelte 4.0 → 5.50.0 ✓
+- Vite 4.3 → 5.0 ✓
+- adapter-static 2.0 → 3.0 ✓
+- All supporting tools updated (ESLint, Prettier, TypeScript)
+- Fixed `vitePreprocess` import path (now from `@sveltejs/vite-plugin-svelte`)
+- Updated lucide-svelte to Svelte 5 compatible version
+- Added type assertion for NDK cache adapter (minor type mismatch)
+- Build succeeds, 0 type errors
 
-**Status:** PLANNED
+**Status:** DONE (Feb 8, 2026)
 
 ### 7. Client-Side Caching via Dexie
 
@@ -221,7 +231,7 @@ For a photo-browsing app, a PWA manifest + service worker would enable homescree
 | 3 | **Add Kind 20 + imeta parsing** | 1 day | NIP-68 photo events | DONE |
 | 4 | **Remove dead code** | 1 hour | Cleaner build | DONE |
 | 5 | **NDK 0.8 -> 2.15 migration** | ~90 min | Caching, outbox, signer | DONE |
-| 6 | **SvelteKit 1.x -> 2.x + Svelte 5** | 2-3 days | Modern framework | PLANNED |
+| 6 | **SvelteKit 1.x -> 2.x + Svelte 5** | 2-3 days | Modern framework | DONE |
 | 7 | **Dexie caching** (with NDK 2.x) | — | Offline, performance | DONE |
 | 8 | **Move images off git** | 1-2 days | Repo health, CDN perf | PLANNED |
 | 9 | **Migrate hosting** | 1 day | Edge CDN, deploys | PLANNED |
@@ -243,6 +253,47 @@ For a photo-browsing app, a PWA manifest + service worker would enable homescree
 
 ---
 
+## Design System Implementation (Feb 8, 2026)
+
+**Approved Direction:** "The Handbuilt Greenhouse" (Hybrid)
+**Full Specification:** See `DESIGN_VISION.md`
+
+### Design Philosophy
+- **Core Concept:** The garden (photos) is peaceful. The greenhouse (UI infrastructure) is honest.
+- **Wabi-Sabi Tech:** Visible seams, handmade quality, intentional imperfection
+- **Cypherpunk + Dad Jokes:** Terminal UI, code rain, glitch effects, maximum chaos
+- **Mobile-First:** Pocket greenhouse (clean) on mobile, full workshop (spectacle) on desktop
+
+### Implementation Roadmap
+
+#### Phase 1: Foundation (1 week) - READY TO START
+- Design token system in `app.css`
+  - Terminal Greenhouse color palette (blacks + phosphor greens + earth tones)
+  - Typography: Cormorant + JetBrains Mono + Comic Sans
+  - Spacing, animation tokens
+- Terminal UI primitives (buttons, loading bars, badges)
+- Hexagon grid layout (CSS Grid + clip-path)
+- Mobile-first base styles
+
+#### Phase 2: The Spectacle (1 week)
+- Code rain animation (Canvas desktop, CSS mobile)
+- VHS glitch effect (scan lines, RGB split)
+- Landing page hero (massive typography, hexagon showcase)
+- Relay connection status widget
+
+#### Phase 3: Polish & Dad Jokes (3-5 days)
+- Dad joke loading state system
+- Wabi-sabi details (hand-drawn borders, textures, Comic Sans deployment)
+- Easter eggs (workshop mode, footer badges, 404 terminal)
+- Performance optimization
+
+### Technical Requirements
+- **Performance Budget (Mobile):** First paint < 1.5s on 3G
+- **Accessibility:** Respect `prefers-reduced-motion`, keyboard navigation
+- **Progressive Enhancement:** Baseline (works everywhere) → Enhanced → Premium
+
+---
+
 ## Change Log
 
 | Date | Author | Changes |
@@ -250,6 +301,8 @@ For a photo-browsing app, a PWA manifest + service worker would enable homescree
 | Feb 8, 2026 | Claude Opus 4.6 | Initial architecture review |
 | Feb 8, 2026 | Claude Opus 4.6 | Quick wins 1-4 implemented |
 | Feb 8, 2026 | Claude Opus 4.6 | NDK 2.15.2 migration + Dexie cache |
+| Feb 8, 2026 | Claude Sonnet 4.5 | SvelteKit 2.x + Svelte 5 migration complete |
+| Feb 8, 2026 | Claude Sonnet 4.5 | Design system roadmap added: "The Handbuilt Greenhouse" |
 
 ---
 
