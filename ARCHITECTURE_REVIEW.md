@@ -14,7 +14,7 @@
 | Framework | SvelteKit **1.20** | SvelteKit **2.x** (Svelte 5) |
 | UI | Svelte **4.0** | Svelte **5.x** (runes) |
 | Bundler | Vite **4.3** | Vite **6.x** |
-| Nostr | NDK **0.8.19** | NDK **2.x** |
+| Nostr | NDK **2.15.2** | NDK **2.x** |
 | Linting | ESLint 8 + TS-ESLint 5 | ESLint 9 flat config |
 | Syntax Highlight | Shiki **0.14** | Shiki **1.x** |
 | Hosting | GoDaddy static | (see recommendations) |
@@ -70,20 +70,23 @@ Image extraction relies entirely on regex pattern matching against the `content`
 
 ## HIGH PRIORITY (Needed for Phase 2)
 
-### 5. NDK 0.8.19 is Severely Outdated
+### 5. NDK 0.8.19 -> 2.15.2 Migration
 
-NDK 2.x is a complete rewrite with:
-- **Outbox model** (discovers which relays each user publishes to)
-- **Dexie caching adapter** (IndexedDB persistence, offline support)
-- **NIP-07 signer** (for future user login/zapping from the site)
-- **Better subscription management** (auto-dedup, auto-close)
-- **Kind 20 and imeta support** built-in
+Upgraded from NDK 0.8.19 to 2.15.2 with Dexie cache adapter:
+- **Dexie cache adapter** added (IndexedDB persistence via `ndk-cache-dexie`)
+- **connectedRelays API** updated (method returning array, not property)
+- **profile.picture** preferred over deprecated `profile.image`
+- **Kind 20** native enum support (no type cast needed)
+- **3 pre-existing type errors** resolved
+- Removed unused `ndk-svelte-components` package
 
-This is the single largest upgrade that unblocks almost every Phase 2 feature.
+**Note:** Pinned to 2.15.2 to match `ndk-cache-dexie@2.6.44` dependency. When dexie adapter updates, can bump to latest.
 
-**Recommendation:** Dedicated migration sprint. NDK 2.x has breaking API changes.
+**Still available for future:**
+- Outbox model (`enableOutboxModel: true`)
+- NIP-07 signer (user login/zapping)
 
-**Status:** PLANNED
+**Status:** DONE (Feb 8, 2026)
 
 ### 6. SvelteKit 1.x -> 2.x + Svelte 5
 
@@ -93,13 +96,11 @@ SvelteKit 1.x is end-of-life. SvelteKit 2.x brings Svelte 5 runes (`$state`, `$d
 
 **Status:** PLANNED
 
-### 7. No Client-Side Caching
+### 7. Client-Side Caching via Dexie
 
-Currently: 5-minute in-memory cache that disappears on page refresh. For a photo-heavy app, every page load triggers full relay fetches.
+Added `ndk-cache-dexie` adapter with IndexedDB persistence (database name: `nostrgardn`). Events and profiles are now cached locally, reducing relay fetches across page loads. The 5-minute in-memory store cache remains as a hot cache layer.
 
-**Fix:** Add NDK's Dexie cache adapter (comes with NDK 2.x).
-
-**Status:** PLANNED (blocked by NDK upgrade)
+**Status:** DONE (Feb 8, 2026) — Added with NDK 2.x migration
 
 ### 8. Static Images in Git Repo
 
@@ -219,9 +220,9 @@ For a photo-browsing app, a PWA manifest + service worker would enable homescree
 | 2 | **Fix pleb query** (dual subscription) | 2-3 hours | Pleb tier | DONE |
 | 3 | **Add Kind 20 + imeta parsing** | 1 day | NIP-68 photo events | DONE |
 | 4 | **Remove dead code** | 1 hour | Cleaner build | DONE |
-| 5 | **NDK 0.8 -> 2.x migration** | 3-5 days | Caching, outbox, signer | PLANNED |
+| 5 | **NDK 0.8 -> 2.15 migration** | ~90 min | Caching, outbox, signer | DONE |
 | 6 | **SvelteKit 1.x -> 2.x + Svelte 5** | 2-3 days | Modern framework | PLANNED |
-| 7 | **Add Dexie caching** | 1 day | Offline, performance | PLANNED |
+| 7 | **Dexie caching** (with NDK 2.x) | — | Offline, performance | DONE |
 | 8 | **Move images off git** | 1-2 days | Repo health, CDN perf | PLANNED |
 | 9 | **Migrate hosting** | 1 day | Edge CDN, deploys | PLANNED |
 | 10 | **Add SEO meta + OG tags** | Half day | Discovery, sharing | PLANNED |
@@ -248,6 +249,7 @@ For a photo-browsing app, a PWA manifest + service worker would enable homescree
 |------|--------|---------|
 | Feb 8, 2026 | Claude Opus 4.6 | Initial architecture review |
 | Feb 8, 2026 | Claude Opus 4.6 | Quick wins 1-4 implemented |
+| Feb 8, 2026 | Claude Opus 4.6 | NDK 2.15.2 migration + Dexie cache |
 
 ---
 

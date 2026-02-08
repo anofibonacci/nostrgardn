@@ -435,7 +435,7 @@ export function populateAuthorInfo(post: FilteredPost, profile: NDKUserProfile |
 	if (profile) {
 		post.author.name = profile.name;
 		post.author.displayName = profile.displayName;
-		post.author.picture = profile.image;
+		post.author.picture = profile.picture || profile.image;
 		post.author.nip05 = profile.nip05;
 	}
 }

@@ -125,16 +125,14 @@ async function _fetchPosts(): Promise<void> {
 		// Dual query strategy:
 		// 1. Gardener posts (whitelisted pubkeys, Kind 1 + Kind 20)
 		// 2. Pleb posts (anyone using #nostrgardnpost tag, Kind 1 + Kind 20)
-		// Note: Kind 20 (NIP-68 picture-first) is cast because NDK 0.8.x types
-		// don't include it yet. This is safe — relays accept any integer kind.
 		const gardenerFilter: NDKFilter = {
-			kinds: [1, 20 as number],
+			kinds: [1, 20],
 			authors: whitelist,
 			limit: display.initialFetchLimit
 		};
 
 		const plebFilter: NDKFilter = {
-			kinds: [1, 20 as number],
+			kinds: [1, 20],
 			'#t': requiredTags,
 			limit: 30
 		};
@@ -171,9 +169,9 @@ async function _fetchPosts(): Promise<void> {
 		// Fetch author profiles (with timeout)
 		const profilePromises = posts.map(async (post) => {
 			try {
-				const user = ndkInstance.getUser({ pubkey: post.author.pubkey });
+				const user = ndkInstance.getUser(post.author.pubkey);
 				await user.fetchProfile();
-				populateAuthorInfo(post, user.profile);
+				populateAuthorInfo(post, user.profile ?? null);
 			} catch (err) {
 				console.warn(`[nostrgardn] Failed to fetch profile for ${post.author.pubkey}:`, err);
 			}

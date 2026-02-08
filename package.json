@@ -12,8 +12,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@nostr-dev-kit/ndk": "^0.8.19",
-		"@nostr-dev-kit/ndk-svelte-components": "^0.8.19",
+		"@nostr-dev-kit/ndk": "^2.15.2",
 		"@sveltejs/adapter-static": "^2.0.3",
 		"@sveltejs/kit": "^1.20.4",
 		"@types/dompurify": "^3.0.5",
@@ -37,6 +36,7 @@
 		"@fontsource-variable/inconsolata": "^5.0.5",
 		"@fontsource/jetbrains-mono": "^5.0.3",
 		"@fontsource/manrope": "^5.0.3",
+		"@nostr-dev-kit/ndk-cache-dexie": "^2.6.44",
 		"dayjs": "^1.11.9",
 		"dompurify": "^3.3.1",
 		"lucide-svelte": "^0.257.0",

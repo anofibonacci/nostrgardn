@@ -1,5 +1,6 @@
 import { browser } from '$app/environment';
 import NDK from '@nostr-dev-kit/ndk';
+import NDKCacheAdapterDexie from '@nostr-dev-kit/ndk-cache-dexie';
 import { writable } from 'svelte/store';
 import { relays } from '../config';
 
@@ -10,21 +11,17 @@ import { relays } from '../config';
 /**
  * Create the NDK instance with relay configuration from config.ts
  *
- * Current setup (NDK 0.8.x):
- * - Basic relay connections
+ * NDK 2.x setup:
+ * - Dexie cache adapter for IndexedDB persistence
  * - Browser-only connection
  *
- * Future upgrades (NDK 2.x):
+ * Future:
  * - enableOutboxModel: true
- * - cacheAdapter: NDKCacheAdapterDexie
  * - NDKNip07Signer for user interactions
  */
 const _ndk = new NDK({
 	explicitRelayUrls: relays.explicit,
-	// Note: outbox relays and model require NDK upgrade
-	// outboxRelayUrls: relays.outbox,
-	// enableOutboxModel: true,
-	debug: false
+	cacheAdapter: new NDKCacheAdapterDexie({ dbName: 'nostrgardn' })
 });
 
 // ============================================================================
@@ -77,7 +74,8 @@ export async function connect(): Promise<void> {
 		// NDK often resolves connect() before all relays are ready
 		// Give it a moment then resolve anyway if we have any pool connections
 		setTimeout(() => {
-			if (_ndk.pool?.connectedRelays?.size > 0) {
+			const connected = _ndk.pool?.connectedRelays();
+			if (connected && connected.length > 0) {
 				clearTimeout(timeout);
 				isConnected = true;
 				console.log('[NDK] Partial connection - some relays ready');
