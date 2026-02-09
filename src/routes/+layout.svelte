@@ -6,6 +6,7 @@
 	import Header from './header.svelte';
 	import PageTransition from './transition.svelte';
 	import { prefetchPosts } from '$lib/stores/posts';
+	import { initKonamiCode, onKonamiActivate, applyMaximumChaosMode } from '$lib/utils/konamiCode';
 	import 'open-props/buttons';
 	import 'open-props/normalize';
 	import 'open-props/style';
@@ -18,6 +19,18 @@
 		if (browser) {
 			console.log('[nostrgardn] Starting background prefetch...');
 			prefetchPosts();
+
+			// Initialize Konami Code easter egg
+			const cleanupKonami = initKonamiCode();
+			const unsubscribe = onKonamiActivate(() => {
+				applyMaximumChaosMode();
+			});
+
+			// Cleanup on unmount
+			return () => {
+				cleanupKonami();
+				unsubscribe();
+			};
 		}
 	});
 </script>

@@ -1,40 +1,146 @@
 @import '@fontsource-variable/cormorant';
 @import '@fontsource-variable/inconsolata';
+@import '@fontsource/jetbrains-mono';
+
+/* =============================================================================
+   TERMINAL GREENHOUSE DESIGN TOKENS
+   Design System: "The Handbuilt Greenhouse" (Feb 8, 2026)
+   Philosophy: Garden (peaceful) + Greenhouse (honest)
+   ============================================================================= */
 
 html {
-	/* font */
+	/* ===== TYPOGRAPHY SYSTEM ===== */
+	/* Three font families: Organic + Technical + Chaos */
+	--font-display: 'Cormorant Variable', serif;      /* Organic elegance */
+	--font-mono: 'JetBrains Mono', monospace;         /* Technical scaffolding */
+	--font-chaos: 'Comic Sans MS', 'Comic Sans', cursive; /* Maximum dad jokes */
+
+	/* Legacy aliases (keep for backward compatibility) */
 	--font-sans: 'Cormorant Variable', sans-serif;
-	--font-mono: 'Inconsolata Variable', monospace;
 
-	/* dark */
-	--brand-dark: var(--teal-6);
-	--text-1-dark: var(--indigo-3);
-	--text-2-dark: var(--choco-3);
-	--text-3-dark: var(--choco-6);
-	--text-a-dark: var(--indigo-6);
-	--text-ahover-dark: var(--teal-9);
-	--surface-1-dark: var(--gray-11);
-	--surface-2-dark: var(--gray-9);
-	--surface-3-dark: var(--gray-6);
-	--surface-4-dark: var(--stone-10);
-	--surface-5-dark: var(--stone-7);
-	--background-dark: var(--gradient-8);
-	--border-dark: var(--gray-7);
+	/* Typography Scale (Modular Scale: 1.25 Major Third) */
+	--font-size-00: 0.64rem;    /* 10px - Micro labels */
+	--font-size-0: 0.8rem;      /* 13px - Small text */
+	--font-size-1: 1rem;        /* 16px - Body */
+	--font-size-2: 1.25rem;     /* 20px - Large body */
+	--font-size-3: 1.563rem;    /* 25px - H4 */
+	--font-size-4: 1.953rem;    /* 31px - H3 */
+	--font-size-5: 2.441rem;    /* 39px - H2 */
+	--font-size-6: 3.052rem;    /* 49px - H1 */
+	--font-size-7: 3.815rem;    /* 61px - Display Small */
+	--font-size-8: 4.768rem;    /* 76px - Display Medium */
+	--font-size-9: 5.96rem;     /* 95px - Display Large */
+	--font-size-10: 7.451rem;   /* 119px - Display XL */
+	--font-size-11: 9.313rem;   /* 149px - Display 2XL */
+	--font-size-12: 11.642rem;  /* 186px - Display 3XL (hero) */
 
-	/* light */
-	--brand-light: var(--teal-6);
-	--text-1-light: var(--indigo-9);
-	--text-2-light: var(--choco-9);
-	--text-3-light: var(--choco-6);
-	--text-a-light: var(--indigo-6);
-	--text-ahover-light: var(--teal-9);
-	--surface-1-light: var(--camo-0);
-	--surface-2-light: var(--camo-2);
-	--surface-3-light: var(--camo-5);
-	--surface-4-light: var(--jungle-1);
-	--surface-5-light: var(--jungle-4);
-	--background-light: var(--gradient-30);
-	--border-light: var(--camo-4);
+	/* ===== TERMINAL GREENHOUSE COLOR PALETTE ===== */
+	/* Base: Terminal blacks */
+	--terminal-black: #0a0a0a;        /* Deep black background */
+	--terminal-gray-dark: #1a1a1a;    /* Slightly lighter surface */
+	--terminal-gray: #2a2a2a;         /* Medium surface */
+
+	/* Tech: Phosphor greens + amber */
+	--code-rain: #00ff41;             /* Matrix green (primary) */
+	--code-accent: #39ff14;           /* Brighter green (secondary) */
+	--code-dim: #00cc33;              /* Dimmed green */
+	--amber-warm: #ff9500;            /* Warm amber (interactions/hover) */
+	--amber-dark: #cc7700;            /* Darker amber (active states) */
+
+	/* Organic: Earth tones */
+	--earth-brown: #6b4423;           /* Italian nonno's workbench */
+	--moss-green: #4a5f3f;            /* Understated nature */
+	--clay-terracotta: #a0522d;       /* Mediterranean warmth */
+
+	/* Wabi-sabi: Imperfect grays */
+	--steel-gray: #8a8a8a;            /* Weathered metal */
+	--concrete: #b8b8b8;              /* Unfinished surface */
+	--dust: #666666;                  /* Subtle elements */
+
+	/* ===== SPACING SYSTEM ===== */
+	/* Modular Scale 1.5 ratio */
+	--space-3xs: 0.25rem;   /* 4px */
+	--space-2xs: 0.5rem;    /* 8px */
+	--space-xs: 0.75rem;    /* 12px */
+	--space-sm: 1rem;       /* 16px */
+	--space-md: 1.5rem;     /* 24px */
+	--space-lg: 2.25rem;    /* 36px */
+	--space-xl: 3.375rem;   /* 54px */
+	--space-2xl: 5.063rem;  /* 81px */
+	--space-3xl: 7.594rem;  /* 121px */
+
+	/* ===== ANIMATION TOKENS ===== */
+	/* Durations */
+	--duration-instant: 100ms;
+	--duration-fast: 200ms;
+	--duration-normal: 300ms;
+	--duration-slow: 500ms;
+	--duration-slower: 800ms;
+	--duration-slowest: 1200ms;
+
+	/* Easing functions */
+	--ease-in: cubic-bezier(0.32, 0, 0.67, 0);
+	--ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	/* ===== BORDER RADII ===== */
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
+	--radius-xl: 16px;
+	--radius-round: 9999px;
+
+	/* ===== SHADOWS ===== */
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+	--shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.2);
+	--shadow-terminal: 0 0 10px rgba(0, 255, 65, 0.3); /* Phosphor glow */
+
+	/* ===== WABI-SABI TOKENS ===== */
+	/* Intentional imperfections for handmade feel */
+	--wobble-sm: 1px;       /* Slight offset */
+	--wobble-md: 2px;       /* Medium offset */
+	--wobble-lg: 3px;       /* Noticeable offset */
+	--rotate-subtle: 0.5deg;  /* Slight rotation */
+	--rotate-obvious: 2deg;   /* More obvious tilt */
+
+	/* ===== LEGACY THEME SYSTEM ===== */
+	/* Keeping existing tokens for backward compatibility */
+	/* These will gradually be replaced with Terminal Greenhouse tokens */
+
+	/* ===== TERMINAL GREENHOUSE: DARK THEME ===== */
+	/* Replaces old Open Props palette with greenhouse aesthetics */
+	--brand-dark: #00ff41;                /* Code rain green */
+	--text-1-dark: #b8b8b8;              /* Concrete (primary text) */
+	--text-2-dark: #8a8a8a;              /* Steel gray (secondary) */
+	--text-3-dark: #666666;              /* Dust (muted) */
+	--text-a-dark: #00ff41;              /* Code rain (links) */
+	--text-ahover-dark: #ff9500;         /* Amber warm (link hover) */
+	--surface-1-dark: #0a0a0a;           /* Terminal black */
+	--surface-2-dark: #1a1a1a;           /* Terminal gray dark */
+	--surface-3-dark: #2a2a2a;           /* Terminal gray */
+	--surface-4-dark: #1a1a1a;           /* Surface alt */
+	--surface-5-dark: #333333;           /* Elevated surface */
+	--background-dark: linear-gradient(180deg, #0a0a0a 0%, #111511 100%);
+	--border-dark: #2a2a2a;              /* Terminal gray */
+
+	/* ===== TERMINAL GREENHOUSE: LIGHT THEME ===== */
+	/* Greenhouse in daylight: warm, earthy, organic */
+	--brand-light: #4a5f3f;              /* Moss green */
+	--text-1-light: #1a1a1a;             /* Near-black text */
+	--text-2-light: #4a5f3f;             /* Moss green (secondary) */
+	--text-3-light: #6b4423;             /* Earth brown (muted) */
+	--text-a-light: #4a5f3f;             /* Moss green (links) */
+	--text-ahover-light: #a0522d;        /* Clay terracotta (hover) */
+	--surface-1-light: #f5f0eb;          /* Warm parchment */
+	--surface-2-light: #e8e0d5;          /* Aged paper */
+	--surface-3-light: #d6c9b9;          /* Weathered wood */
+	--surface-4-light: #ede6dc;          /* Light birch */
+	--surface-5-light: #c4b5a0;          /* Tan canvas */
+	--background-light: linear-gradient(180deg, #f5f0eb 0%, #ede6dc 100%);
+	--border-light: #c4b5a0;             /* Tan border */
 }
 
 :root {
@@ -72,6 +178,38 @@ html {
 	--color-link: var(--text-a);
 	--color-link-hover: var(--text-ahover);
 	--color-focus: var(--brand);
+
+	/* ===== TERMINAL GREENHOUSE SEMANTIC TOKENS ===== */
+	/* Use these for new components - they map to Terminal Greenhouse palette */
+
+	/* Backgrounds */
+	--bg-terminal: var(--terminal-black);
+	--bg-surface: var(--terminal-gray-dark);
+	--bg-elevated: var(--terminal-gray);
+
+	/* Text */
+	--text-primary: var(--concrete);          /* Main text */
+	--text-secondary: var(--steel-gray);      /* Secondary text */
+	--text-tertiary: var(--dust);             /* Muted text */
+	--text-terminal: var(--code-rain);        /* Terminal/code text */
+	--text-accent: var(--amber-warm);         /* Accent text */
+
+	/* Interactive */
+	--interactive-default: var(--code-rain);  /* Default interactive elements */
+	--interactive-hover: var(--amber-warm);   /* Hover state */
+	--interactive-active: var(--amber-dark);  /* Active/pressed state */
+	--interactive-dim: var(--code-dim);       /* Disabled/dim state */
+
+	/* Borders */
+	--border-default: var(--terminal-gray);
+	--border-subtle: var(--dust);
+	--border-accent: var(--code-rain);
+	--border-warm: var(--amber-warm);
+
+	/* Nature/Organic elements */
+	--nature-primary: var(--moss-green);
+	--nature-secondary: var(--earth-brown);
+	--nature-accent: var(--clay-terracotta);
 }
 
 @media (prefers-color-scheme: light) {
@@ -194,13 +332,44 @@ body {
 
 html {
 	color: var(--text-1);
-	accent-color: var(--link);
+	accent-color: var(--brand);
 	background-image: var(--background);
+	background-color: var(--surface-1);
 	background-attachment: fixed;
+	/* Terminal Greenhouse fonts */
+	font-family: 'JetBrains Mono', monospace;
+}
+
+body {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.95rem;
+	letter-spacing: -0.01em;
+}
+
+/* Display headings use Cormorant */
+h1, h2, h3 {
+	font-family: 'Cormorant Variable', serif;
+	font-weight: 400;
+	letter-spacing: -0.02em;
+}
+
+/* All links get greenhouse treatment */
+a {
+	color: var(--text-a);
+	transition: color 0.2s ease;
+}
+
+a:hover {
+	color: var(--text-ahover);
 }
 
 img {
 	border-radius: var(--radius-3);
+}
+
+/* Buttons: Mono font */
+button {
+	font-family: 'JetBrains Mono', monospace;
 }
 
 ul,
@@ -242,4 +411,778 @@ li {
 .surface-4 {
 	background-color: var(--surface-4);
 	color: var(--text-1);
+}
+
+/* =============================================================================
+   TERMINAL GREENHOUSE UTILITY CLASSES
+   ============================================================================= */
+
+/* Typography utilities */
+.font-display {
+	font-family: var(--font-display);
+}
+
+.font-mono {
+	font-family: var(--font-mono);
+}
+
+.font-chaos {
+	font-family: var(--font-chaos);
+}
+
+/* Terminal text styling */
+.text-terminal {
+	font-family: var(--font-mono);
+	color: var(--text-terminal);
+	text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+}
+
+/* Wabi-sabi utilities - intentional imperfections */
+.wobble-sm {
+	transform: translateX(var(--wobble-sm)) translateY(var(--wobble-sm));
+}
+
+.wobble-md {
+	transform: translateX(var(--wobble-md)) translateY(var(--wobble-md));
+}
+
+.rotate-subtle {
+	transform: rotate(var(--rotate-subtle));
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* =============================================================================
+   MOBILE-FIRST BASE STYLES
+   Phase 1: Foundation - The Handbuilt Greenhouse
+   ============================================================================= */
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+:root {
+	/* Mobile-first breakpoints */
+	--breakpoint-sm: 640px;   /* Small tablets */
+	--breakpoint-md: 768px;   /* Tablets */
+	--breakpoint-lg: 1024px;  /* Desktop */
+	--breakpoint-xl: 1280px;  /* Large desktop */
+	--breakpoint-2xl: 1536px; /* Extra large */
+
+	/* Touch targets (minimum 48x48px for accessibility) */
+	--touch-target-min: 48px;
+}
+
+/* ===== PERFORMANCE & UX OPTIMIZATIONS ===== */
+
+/* Smooth scrolling (respects reduced-motion) */
+html {
+	scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+/* Text rendering optimization */
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+/* Prevent text size adjustment on orientation change (mobile) */
+html {
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+/* ===== MOBILE-FIRST TYPOGRAPHY ===== */
+
+/* Base font size scales responsively */
+html {
+	/* Mobile: 16px base */
+	font-size: 16px;
+}
+
+@media (min-width: 768px) {
+	html {
+		/* Tablet: 17px base */
+		font-size: 17px;
+	}
+}
+
+@media (min-width: 1024px) {
+	html {
+		/* Desktop: 18px base */
+		font-size: 18px;
+	}
+}
+
+body {
+	font-family: var(--font-display);
+	font-size: var(--font-size-1);
+	line-height: 1.6;
+	color: var(--text-primary);
+}
+
+/* Headings with fluid sizing */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-display);
+	font-weight: 600;
+	line-height: 1.2;
+	margin-top: 0;
+	margin-bottom: var(--space-md);
+	color: var(--text-primary);
+}
+
+h1 {
+	font-size: clamp(var(--font-size-6), 8vw, var(--font-size-9));
+}
+
+h2 {
+	font-size: clamp(var(--font-size-4), 5vw, var(--font-size-6));
+}
+
+h3 {
+	font-size: clamp(var(--font-size-3), 4vw, var(--font-size-5));
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: var(--space-md);
+	line-height: 1.6;
+}
+
+/* ===== TOUCH-FRIENDLY INTERACTIVE ELEMENTS ===== */
+
+/* Ensure all interactive elements meet touch target minimum */
+button,
+a,
+input,
+select,
+textarea,
+[role='button'],
+[tabindex='0'] {
+	min-height: var(--touch-target-min);
+	min-width: var(--touch-target-min);
+}
+
+/* Exception for inline links in text */
+p a,
+li a,
+.inline-link {
+	min-height: auto;
+	min-width: auto;
+}
+
+/* Remove button styling reset */
+button {
+	font-family: inherit;
+	font-size: inherit;
+	cursor: pointer;
+	border: none;
+	background: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* Links */
+a {
+	color: var(--interactive-default);
+	text-decoration: none;
+	transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+	color: var(--interactive-hover);
+}
+
+a:focus-visible {
+	outline: 2px solid var(--interactive-hover);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* ===== LAYOUT CONTAINERS ===== */
+
+/* Main content wrapper */
+.container {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--space-md);
+	padding-right: var(--space-md);
+}
+
+@media (min-width: 640px) {
+	.container {
+		max-width: 640px;
+	}
+}
+
+@media (min-width: 768px) {
+	.container {
+		max-width: 768px;
+		padding-left: var(--space-lg);
+		padding-right: var(--space-lg);
+	}
+}
+
+@media (min-width: 1024px) {
+	.container {
+		max-width: 1024px;
+	}
+}
+
+@media (min-width: 1280px) {
+	.container {
+		max-width: 1280px;
+		padding-left: var(--space-xl);
+		padding-right: var(--space-xl);
+	}
+}
+
+/* ===== SPACING UTILITIES ===== */
+
+/* Margin utilities */
+.mt-0 { margin-top: 0; }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+/* Padding utilities */
+.p-0 { padding: 0; }
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.p-lg { padding: var(--space-lg); }
+.p-xl { padding: var(--space-xl); }
+
+/* ===== RESPONSIVE UTILITIES ===== */
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+	.hide-mobile {
+		display: none !important;
+	}
+}
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+	.hide-desktop {
+		display: none !important;
+	}
+}
+
+/* Show only on mobile */
+.show-mobile {
+	display: block;
+}
+
+@media (min-width: 768px) {
+	.show-mobile {
+		display: none;
+	}
+}
+
+/* Show only on desktop */
+.show-desktop {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.show-desktop {
+		display: block;
+	}
+}
+
+/* ===== PERFORMANCE HINTS ===== */
+
+/* Optimize images */
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Lazy loading hint */
+img[loading='lazy'] {
+	content-visibility: auto;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: no-preference) {
+	/* Enable GPU acceleration for animations */
+	.animate {
+		will-change: transform;
+	}
+
+	.animate:not(:hover):not(:focus):not(:active) {
+		will-change: auto;
+	}
+}
+
+/* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+
+/* Skip to content link (for keyboard users) */
+.skip-to-content {
+	position: absolute;
+	top: -100px;
+	left: 0;
+	background: var(--bg-terminal);
+	color: var(--text-terminal);
+	padding: var(--space-sm) var(--space-md);
+	text-decoration: none;
+	z-index: 9999;
+	border: 2px solid var(--border-accent);
+}
+
+.skip-to-content:focus {
+	top: 0;
+}
+
+/* Screen reader only content */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+/* Focus visible for all interactive elements */
+*:focus-visible {
+	outline: 2px solid var(--interactive-hover);
+	outline-offset: 2px;
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+	*,
+	*::before,
+	*::after {
+		background: white !important;
+		color: black !important;
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+
+	a,
+	a:visited {
+		text-decoration: underline;
+	}
+
+	a[href]::after {
+		content: ' (' attr(href) ')';
+	}
+
+	img {
+		max-width: 100% !important;
+		page-break-inside: avoid;
+	}
+
+	h1,
+	h2,
+	h3 {
+		page-break-after: avoid;
+	}
+}
+
+/* =============================================================================
+   KONAMI CODE: MAXIMUM CHAOS MODE
+   Activated with: ↑ ↑ ↓ ↓ ← → ← → B A
+   ============================================================================= */
+
+.konami-chaos-mode {
+	/* COMIC SANS EVERYWHERE */
+	--font-display: 'Comic Sans MS', 'Comic Sans', cursive !important;
+	--font-mono: 'Comic Sans MS', 'Comic Sans', cursive !important;
+	font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
+}
+
+.konami-chaos-mode * {
+	font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
+}
+
+/* Spinning animations */
+.konami-chaos-mode h1,
+.konami-chaos-mode h2,
+.konami-chaos-mode h3 {
+	animation: konami-wobble 2s ease-in-out infinite;
+}
+
+.konami-chaos-mode img {
+	animation: konami-spin 10s linear infinite;
+}
+
+.konami-chaos-mode button,
+.konami-chaos-mode .terminal-btn {
+	animation: konami-bounce 1s ease-in-out infinite;
+}
+
+@keyframes konami-wobble {
+	0%,
+	100% {
+		transform: rotate(-2deg);
+	}
+	50% {
+		transform: rotate(2deg);
+	}
+}
+
+@keyframes konami-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes konami-bounce {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+/* Konami Notification */
+.konami-notification {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 99999;
+	background: var(--terminal-black);
+	border: 4px solid var(--code-rain);
+	border-radius: var(--radius-lg);
+	padding: var(--space-xl);
+	box-shadow: 0 0 40px rgba(0, 255, 65, 0.8);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+	max-width: 90vw;
+	font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+}
+
+.konami-notification.show {
+	opacity: 1;
+}
+
+.konami-content {
+	text-align: center;
+	color: var(--text-primary);
+}
+
+.konami-title {
+	font-size: var(--font-size-5);
+	color: var(--code-rain);
+	margin-bottom: var(--space-sm);
+	animation: konami-rainbow 2s linear infinite;
+	font-weight: bold;
+}
+
+.konami-subtitle {
+	font-size: var(--font-size-2);
+	color: var(--amber-warm);
+	margin-bottom: var(--space-md);
+}
+
+.konami-hint {
+	font-size: var(--font-size-1);
+	color: var(--text-secondary);
+	font-style: italic;
+}
+
+@keyframes konami-rainbow {
+	0% {
+		color: #ff0000;
+	}
+	16% {
+		color: #ff7f00;
+	}
+	33% {
+		color: #ffff00;
+	}
+	50% {
+		color: #00ff00;
+	}
+	66% {
+		color: #0000ff;
+	}
+	83% {
+		color: #8b00ff;
+	}
+	100% {
+		color: #ff0000;
+	}
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.konami-chaos-mode h1,
+	.konami-chaos-mode h2,
+	.konami-chaos-mode h3,
+	.konami-chaos-mode img,
+	.konami-chaos-mode button,
+	.konami-chaos-mode .terminal-btn {
+		animation: none !important;
+	}
+
+	.konami-title {
+		animation: none !important;
+	}
+}
+
+/* =============================================================================
+   WABI-SABI UTILITIES
+   Intentional imperfections for handmade feel
+   ============================================================================= */
+
+/* Subtle rotation */
+.wabi-tilt-sm {
+	transform: rotate(calc(var(--wobble-sm) * 0.5deg));
+}
+
+.wabi-tilt-md {
+	transform: rotate(calc(var(--wobble-md) * 0.5deg));
+}
+
+/* Slight offset */
+.wabi-offset-sm {
+	transform: translate(var(--wobble-sm), var(--wobble-sm));
+}
+
+.wabi-offset-md {
+	transform: translate(var(--wobble-md), var(--wobble-md));
+}
+
+/* Combined (rotate + offset) */
+.wabi-wobble {
+	transform: translate(1px, 1px) rotate(0.5deg);
+}
+
+/* Hand-drawn underline */
+.wabi-underline {
+	position: relative;
+	text-decoration: none;
+}
+
+.wabi-underline::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: currentColor;
+	opacity: 0.6;
+	/* Simulated hand-drawn wobble */
+	clip-path: polygon(
+		0% 50%,
+		10% 45%,
+		20% 55%,
+		30% 48%,
+		40% 52%,
+		50% 47%,
+		60% 53%,
+		70% 49%,
+		80% 51%,
+		90% 48%,
+		100% 50%
+	);
+}
+
+/* Texture overlays */
+.wabi-texture-paper {
+	position: relative;
+	overflow: hidden;
+}
+
+.wabi-texture-paper::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+	opacity: 0.03;
+	pointer-events: none;
+	mix-blend-mode: overlay;
+}
+
+.wabi-texture-concrete {
+	position: relative;
+	overflow: hidden;
+}
+
+.wabi-texture-concrete::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+	opacity: 0.05;
+	pointer-events: none;
+	mix-blend-mode: multiply;
+}
+
+/* =============================================================================
+   WABI-SABI: Visible hand-made imperfections on cards/posts
+   Rotations 0.4-1.2deg are the sweet spot: noticeable but not jarring.
+   ============================================================================= */
+.wabi-vary {
+	transition: transform 0.25s ease;
+}
+
+.wabi-vary:nth-child(odd) {
+	transform: rotate(0.7deg) translateX(-1px);
+}
+
+.wabi-vary:nth-child(even) {
+	transform: rotate(-0.5deg) translateX(1.5px);
+}
+
+.wabi-vary:nth-child(3n) {
+	transform: rotate(1deg) translateY(1px);
+}
+
+.wabi-vary:nth-child(4n) {
+	transform: rotate(-0.8deg) translate(-1px, 0.5px);
+}
+
+.wabi-vary:hover {
+	transform: rotate(0deg) scale(1.008);
+}
+
+/* Hand-drawn borders on focus */
+*:focus-visible {
+	outline: 2px solid var(--interactive-hover);
+	outline-offset: 3px;
+	/* Slightly wobbly outline */
+	box-shadow:
+		0 0 0 2px var(--bg-terminal),
+		0 0 0 4px var(--interactive-hover);
+}
+
+/* Add texture to main content areas */
+main {
+	position: relative;
+}
+
+main::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+	opacity: 0.02;
+	pointer-events: none;
+	mix-blend-mode: overlay;
+	z-index: 0;
+}
+
+main > * {
+	position: relative;
+	z-index: 1;
+}
+
+/* Imperfect grid spacing */
+.showcase,
+.posts {
+	/* Add micro-variations to grid gaps */
+	row-gap: calc(var(--size-7) + var(--wobble-md));
+}
+
+/* Hand-drawn feel for hr elements */
+hr {
+	border: none;
+	height: 2px;
+	background: currentColor;
+	opacity: 0.3;
+	/* Wobbly line effect */
+	clip-path: polygon(
+		0% 50%,
+		5% 45%,
+		10% 52%,
+		15% 48%,
+		20% 51%,
+		25% 47%,
+		30% 53%,
+		35% 49%,
+		40% 52%,
+		45% 48%,
+		50% 50%,
+		55% 52%,
+		60% 48%,
+		65% 51%,
+		70% 47%,
+		75% 52%,
+		80% 49%,
+		85% 51%,
+		90% 48%,
+		95% 52%,
+		100% 50%
+	);
+}
+
+/* Organic link hovers */
+a:hover:not(.button) {
+	text-decoration-style: wavy;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 3px;
+}
+
+/* Imperfect shadows */
+.full-post,
+.photo-frame {
+	box-shadow:
+		calc(var(--wobble-sm) * 2) calc(var(--wobble-md) * 2) calc(var(--size-3) * 1.2)
+			rgba(0, 0, 0, 0.1),
+		calc(var(--wobble-sm) * 1) calc(var(--wobble-md) * 1) calc(var(--size-1) * 0.8)
+			rgba(0, 0, 0, 0.05);
+}
+
+/* Disable wabi-sabi for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.wabi-tilt-sm,
+	.wabi-tilt-md,
+	.wabi-offset-sm,
+	.wabi-offset-md,
+	.wabi-wobble,
+	.wabi-vary,
+	article,
+	button,
+	img {
+		transform: none !important;
+	}
+
+	a:hover {
+		text-decoration-style: solid;
+	}
 }

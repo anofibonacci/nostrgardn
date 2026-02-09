@@ -1,8 +1,8 @@
 # SEED VAULT
 ## NostrGardn Feature Backlog
 
-**Last Updated:** January 26, 2026
-**Curated By:** Claude (Opus 4.5) + The Master Gardener
+**Last Updated:** January 31, 2026
+**Curated By:** Claude (Sonnet 4.5) + The Master Gardener
 
 > *"Every mighty oak was once a nut that held its ground."*
 
@@ -27,7 +27,7 @@ This document contains feature ideas — seeds waiting to be planted, nurtured, 
 ---
 
 ### 0. Proof of Work (PoW) - Visual History Heatmap
-**Status:** 🌿 Growing
+**Status:** 🌻 Bloomed (Deployed Jan 31, 2026)
 **Complexity:** Medium
 **Cypherpunk Factor:** ⚡⚡⚡⚡
 
@@ -68,10 +68,11 @@ A GitHub-style contributions graph showing the visual history of NostrGardn — 
 - ✅ GPS stripping implemented (3,066 files processed)
 - ✅ Metadata JSON files generated (pow-metadata.json, pow-diaries.json)
 - ✅ Production GPS stripping plan documented (exiftool deployment approach)
-- ⏳ SvelteKit routes (`/pow`, `/pow/[year]/[month]/[day]`)
-- ⏳ Heatmap visualization component
-- ⏳ Lightbox gallery integration
-- ⏳ Mobile responsiveness
+- ✅ SvelteKit routes (`/pow`, `/pow/[year]/[month]/[day]`)
+- ✅ Heatmap visualization component
+- ✅ Lightbox gallery integration
+- ✅ Mobile responsiveness
+- ✅ Deployed to production at nostrgardn.com/pow
 
 **Files Created:**
 - `/scripts/generate_pow_metadata.py` — Metadata generator + GPS stripper
@@ -88,6 +89,97 @@ This is the **visual proof of labor** — a celebration of consistency and care.
 - Seasonal patterns visualization
 - Export functionality (download heatmap data, archive photos)
 - Integration with diary entries for AI-powered photo summaries
+
+---
+
+### 0.1. Feed-to-Gallery Deep Linking
+**Status:** 🌰 Seed
+**Complexity:** Medium
+**Cypherpunk Factor:** ⚡⚡⚡
+
+**The Vision:**
+Transform the Feed from a standalone experience into a discovery mechanism that links to the permanent PoW gallery. When users click an image in the Feed (served by relays), instead of just opening it larger, match it to its corresponding hosted image and navigate to that day's PoW lightbox page.
+
+**How It Works:**
+1. **Parse image URL** from Nostr event (e.g., `https://image.nostr.build/abc123/IMG_20230809_0456.jpg`)
+2. **Extract matching data:**
+   - Trailing 4 digits from filename → `0456`
+   - Date from filename pattern `IMG_YYYYMMDD_####` → `20230809`
+   - Or fallback to Nostr event `created_at` timestamp
+3. **Construct expected filename** → `IMG_20230809_0456.jpg`
+4. **Check PoW metadata** to verify that date exists in the gallery
+5. **Navigate to** `/pow/2023/08/09` (and optionally scroll/highlight that specific image)
+6. **Fallback:** If no match found, open in current lightbox behavior
+
+**UX Enhancements:**
+- **Visual indicator** in Feed: subtle badge/icon on images that have matching PoW entries (shows they're "deeplinks")
+- **Smooth transition:** animate from Feed → PoW day view
+- **Graceful fallback:** "This image isn't in the garden yet" message for non-matches
+- **Optional:** Show a breadcrumb trail (Feed → PoW → Day)
+
+**Edge Cases to Handle:**
+- Feed images from external hosts (nostr.build, etc.) with recognizable filenames
+- Date mismatches (Nostr post date ≠ photo date)
+- Images in Feed that aren't in the hosted gallery (user posts new content)
+- Multiple images with same date/sequence number (unlikely but possible)
+
+**Technical Notes:**
+- Regex for filename parsing: `/IMG_(\d{8})_(\d{4})\.\w+$/`
+- Client-side matching against existing `pow-metadata.json`
+- URL parsing to extract filename from various image hosts
+- Consider caching match results for performance
+
+**Why It's Great:**
+Creates a cohesive user journey across NostrGardn's three image contexts (main page, Feed, PoW). The Feed becomes a window into the curated gallery, not a separate silo. Very cypherpunk: decentralized discovery (Nostr) leading to permanent cultivation (hosted PoW). All roads lead to the garden.
+
+---
+
+### 0.2. Main Page Image Curation System
+**Status:** 🌰 Seed
+**Complexity:** Medium
+**Cypherpunk Factor:** ⚡⚡⚡⚡
+
+**The Vision:**
+Replace the static 4-image showcase on the main page with a dynamic, Nostr-powered curation system. Use Nostr event tags to mark images as "featured," keeping curation on-chain and manageable from any Nostr client.
+
+**How It Works:**
+1. **Nostr Tag-Based Selection:**
+   - Custom tag like `["featured", "home"]` or `["garden-display", "main"]`
+   - Or rating system: `["rating", "5"]` for favorites
+   - Or seasonal: `["season", "spring"]` for themed displays
+
+2. **Dynamic Fetching:**
+   - Query relays for events with the featured tag
+   - Pull 4 random images from the pool (or rotation logic)
+   - Refresh on page load or interval
+
+3. **Curation Interface (Future):**
+   - Admin route (`/curate`) for Master Gardener to tag images
+   - Or manage directly from Nostr client (Damus, Primal, etc.)
+   - Could allow Gardeners to vote/propose featured images
+
+**Display Options:**
+- **Random 4** from featured pool (current behavior, but dynamic)
+- **Rotation** - cycle through featured images on timer
+- **Seasonal** - filter by season tag
+- **Most zapped** - show highest-zapped featured images
+- **Recent additions** - show newly featured content
+
+**Technical Notes:**
+- Fetch Nostr events with custom tag filter
+- Parse image URLs from events
+- Cache featured image list client-side
+- Could pre-generate featured pool in metadata JSON for performance
+- Master Gardener npub has curation authority
+
+**Why It's Great:**
+Keeps the curation **on-chain** - manage featured images from anywhere, not just the website. Scales beyond 4 static images without manual code updates. Could enable community curation (Gardener voting). Very decentralized: the garden's front door is managed by the protocol, not a CMS.
+
+**Future Extensions:**
+- Community voting on featured images
+- Seasonal/thematic collections
+- "Image of the Week" spotlight
+- Export featured collection as Nostr list (NIP-51)
 
 ---
 

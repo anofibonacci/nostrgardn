@@ -2,9 +2,14 @@
 	import FullPostCard from '$lib/components/FullPostCard.svelte';
 	import PhotoOnlyFrame from '$lib/components/PhotoOnlyFrame.svelte';
 	import { postsStore, refreshPosts } from '$lib/stores/posts';
+	import { getLoadingMessage, getDadJoke } from '$lib/utils/dadJokes';
 
 	// Subscribe to the shared posts store for reactive updates
 	$: ({ posts, stats, error, loading } = $postsStore);
+
+	// Get random dad jokes
+	const loadingJoke = getLoadingMessage();
+	const emptyJoke = getDadJoke('empty');
 
 	async function handleRefresh() {
 		await refreshPosts();
@@ -13,22 +18,23 @@
 
 <section>
 	<header>
-		<h1><a href="/">nostrgardn</a></h1>
-		<p class="subtitle">the feed</p>
+		<h1 class="wabi-wobble"><a href="/">nostrgardn</a></h1>
+		<p class="subtitle wabi-underline">the feed</p>
 	</header>
 
 	{#if loading}
 		<div class="status">
-			<p class="loading">Growing the garden...</p>
+			<p class="loading font-mono">{loadingJoke}</p>
 		</div>
 	{:else if error}
 		<div class="status error">
-			<p>Something went wrong: {error}</p>
+			<p class="font-mono">{getDadJoke('error')}</p>
+			<p class="error-detail">{error}</p>
 			<button on:click={handleRefresh}>Try Again</button>
 		</div>
 	{:else if posts.length === 0}
 		<div class="status empty">
-			<p>The garden is quiet today. No posts found.</p>
+			<p class="font-mono">{emptyJoke}</p>
 			<button on:click={handleRefresh}>Refresh</button>
 		</div>
 	{:else}
@@ -45,7 +51,7 @@
 
 		<div class="refresh-bar">
 			<button class="refresh-btn" on:click={handleRefresh} disabled={loading}>
-				{loading ? 'Refreshing...' : 'Refresh Feed'}
+				{loading ? getLoadingMessage() : 'Refresh Feed'}
 			</button>
 		</div>
 
@@ -105,7 +111,14 @@
 	}
 
 	.status.error {
-		color: var(--red-5);
+		color: var(--amber-warm);
+	}
+
+	.error-detail {
+		font-size: var(--font-size-0);
+		color: var(--text-tertiary);
+		margin-top: var(--space-sm);
+		font-style: italic;
 	}
 
 	.status button {

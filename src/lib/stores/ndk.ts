@@ -21,7 +21,8 @@ import { relays } from '../config';
  */
 const _ndk = new NDK({
 	explicitRelayUrls: relays.explicit,
-	cacheAdapter: new NDKCacheAdapterDexie({ dbName: 'nostrgardn' })
+	// Type assertion needed due to minor version mismatch between ndk and ndk-cache-dexie
+	cacheAdapter: new NDKCacheAdapterDexie({ dbName: 'nostrgardn' }) as any
 });
 
 // ============================================================================

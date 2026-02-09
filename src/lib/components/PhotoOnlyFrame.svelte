@@ -16,7 +16,7 @@
 </script>
 
 {#if images.length > 0}
-	<article class="photo-frame">
+	<article class="photo-frame wabi-vary wabi-texture-concrete">
 		<div class="images" class:single={images.length === 1} class:multiple={images.length > 1}>
 			{#each images as src, i}
 				<a href={src} target="_blank" rel="noopener" class="image-link">
@@ -31,7 +31,7 @@
 					<img src={authorPicture} alt="" class="avatar" />
 				{/if}
 				<a
-					href="https://primal.net/profile/{post.author.pubkey}"
+					href="https://nosta.me/{post.author.pubkey}"
 					target="_blank"
 					rel="noopener"
 					class="author-link"
@@ -52,11 +52,15 @@
 		flex-direction: column;
 		width: 100%;
 		max-width: 700px;
-		padding: var(--size-4);
-		background-color: var(--surface-4);
-		border: 4px solid var(--surface-5);
-		border-radius: var(--radius-3);
-		box-shadow: 0 0 0.5rem var(--surface-1);
+		/* Wabi-sabi: Asymmetric padding */
+		padding: 1.15rem 1.2rem 1.05rem 1.3rem;
+		background-color: var(--surface-2);
+		/* Wabi-sabi: Double border like an old picture frame */
+		border: 3px double var(--brand, #00ff41);
+		border-radius: 4px 2px 6px 3px;
+		box-shadow:
+			-2px 2px 0px rgba(0, 255, 65, 0.08),
+			inset 0 0 30px rgba(0, 255, 65, 0.02);
 	}
 
 	.images {

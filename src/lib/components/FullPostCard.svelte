@@ -58,14 +58,14 @@
 	}
 </script>
 
-<article class="full-post">
+<article class="full-post wabi-vary wabi-texture-paper">
 	<header>
 		{#if authorPicture}
 			<img src={authorPicture} alt="" class="avatar" />
 		{/if}
 		<div class="meta">
 			<a
-				href="https://primal.net/profile/{post.author.pubkey}"
+				href="https://nosta.me/{post.author.pubkey}"
 				target="_blank"
 				rel="noopener"
 				class="author"
@@ -103,11 +103,16 @@
 		align-items: flex-start;
 		width: 100%;
 		max-width: 600px;
-		padding: var(--size-4);
+		/* Wabi-sabi: Asymmetric padding — hand-placed, not machine-perfect */
+		padding: 1.1rem 1.25rem 1rem 1.15rem;
 		background-color: var(--surface-2);
-		border: 4px solid var(--surface-3);
-		border-radius: var(--radius-3);
-		box-shadow: 0 0 0.5rem var(--surface-1);
+		/* Wabi-sabi: Dashed border like a garden sketch */
+		border: 1px dashed var(--brand, #00ff41);
+		border-left: 3px solid var(--brand, #00ff41);
+		border-radius: 2px 6px 4px 8px;
+		box-shadow:
+			2px 3px 0px rgba(0, 255, 65, 0.08),
+			inset 0 0 30px rgba(0, 255, 65, 0.02);
 	}
 
 	header {
