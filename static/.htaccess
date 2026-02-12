@@ -1,0 +1,15 @@
+# SPA Fallback for SvelteKit adapter-static
+# Serves index.html for all routes that don't match a physical file or directory
+# Required for client-side routing on Apache (GoDaddy shared hosting)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If the requested file exists, serve it directly
+  RewriteCond %{REQUEST_FILENAME} !-f
+  # If the requested directory exists, serve it directly
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # Otherwise, serve index.html (SvelteKit handles routing client-side)
+  RewriteRule ^ index.html [L]
+</IfModule>

@@ -138,9 +138,24 @@ async function _fetchPosts(): Promise<void> {
 		};
 
 		console.log('[nostrgardn] Prefetching events from relays (gardener + pleb queries)...');
+
+		// Timeout wrapper: if a relay never sends EOSE, fetchEvents hangs forever.
+		// Resolve with empty set after 15s rather than blocking the feed indefinitely.
+		const fetchWithTimeout = (filter: NDKFilter, label: string): Promise<Set<NDKEvent>> => {
+			return Promise.race([
+				ndkInstance.fetchEvents(filter, { closeOnEose: true }),
+				new Promise<Set<NDKEvent>>((resolve) => {
+					setTimeout(() => {
+						console.warn(`[nostrgardn] ${label} fetch timed out after 15s`);
+						resolve(new Set());
+					}, 15000);
+				})
+			]);
+		};
+
 		const [gardenerEvents, plebEvents] = await Promise.all([
-			ndkInstance.fetchEvents(gardenerFilter, { closeOnEose: true }),
-			ndkInstance.fetchEvents(plebFilter, { closeOnEose: true })
+			fetchWithTimeout(gardenerFilter, 'Gardener'),
+			fetchWithTimeout(plebFilter, 'Pleb')
 		]);
 
 		// Merge and deduplicate by event ID

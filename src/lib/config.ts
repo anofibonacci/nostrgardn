@@ -16,13 +16,12 @@ export const site = {
 
 // Primary relays for fetching content
 export const relays = {
-	// Main content relays
+	// Main content relays (1in7 is our private relay — primary source of truth)
 	explicit: [
+		'wss://relay.1in7.com',
 		'wss://relay.damus.io',
 		'wss://nos.lol',
 		'wss://relay.primal.net'
-		// 'wss://relay.nostr.band'  // disabled: connection issues
-		// 'wss://gardn.nostr1.com'  // future: private relay
 	],
 
 	// Outbox model: relays for discovering user relay preferences

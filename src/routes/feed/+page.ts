@@ -14,20 +14,13 @@ export interface PageData {
 }
 
 export async function load(): Promise<PageData> {
-	// Return empty state for SSR (shouldn't happen with ssr: false)
-	if (!browser) {
-		return {
-			initialState: get(postsStore)
-		};
-	}
-
-	// If we don't have cached posts (user navigated directly to /feed),
-	// trigger a fetch and wait for it
-	if (!hasCachedPosts()) {
+	// If we don't have cached posts, kick off a fetch but DON'T await it.
+	// The page component subscribes reactively to postsStore and handles
+	// loading/error/empty states. Awaiting here blocks SvelteKit from
+	// rendering the page entirely — if a relay hangs, the user sees nothing.
+	if (browser && !hasCachedPosts()) {
 		console.log('[nostrgardn/feed] No cached posts, fetching...');
-		await prefetchPosts();
-	} else {
-		console.log('[nostrgardn/feed] Using prefetched posts');
+		prefetchPosts();
 	}
 
 	return {
